@@ -1,0 +1,67 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+docs: https://support.leadspace.com/hc/en-us/articles/360000827409-API-v4-OAuth-2-0-Diagram
+summary:
+  types:
+    - http
+    - oauth2
+  api_key_in:
+    - header
+  oauth2_flows:
+    - password
+  transport: https-only
+  credential_delivery: >-
+    Leadspace issues a Program ID (username) and an authentication secret / API
+    key out of band, by email, at program setup. A customer may hold multiple
+    API keys, one per program.
+schemes:
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    in: header
+    parameter: Authorization
+    format: "Authorization: Bearer API_KEY"
+    description: >-
+      Perpetual token issued by Leadspace at program setup. Used directly as a
+      bearer credential on every enrichment, discovery, and intent request.
+    sources:
+      - openapi/leadspace-enrichment-openapi.yml
+      - openapi/leadspace-discovery-openapi.yml
+      - openapi/leadspace-intent-openapi.yml
+  - name: oauth2
+    type: oauth2
+    flow: password
+    description: >-
+      Username-password (resource owner password credentials) flow. POST the
+      Program ID as `user`, the authentication secret as `pass`, and the
+      audience `API_GATEWAY` to the authorize endpoint to receive a bearer
+      token plus a refreshToken. Tokens expire every 24 hours; refresh with a
+      PUT to the same endpoint.
+    tokenUrl: https://apigw.leadspace.com/oauth/authorize
+    refreshUrl: https://apigw.leadspace.com/oauth/authorize
+    token_ttl_seconds: 86400
+    audience: API_GATEWAY
+    scopes: []
+    scopes_note: >-
+      Leadspace does not document an OAuth scope surface; entitlement is bound
+      to the Program ID rather than to per-request scopes.
+    sources:
+      - https://support.leadspace.com/hc/en-us/articles/360000827409-API-v4-OAuth-2-0-Diagram
+token_rotation:
+  perpetual_token: true
+  recommended_rotation_months: 6
+  hard_expiry_years: 2
+  process: >-
+    Leadspace recommends rotating the perpetual token every six months from the
+    end of the integration period. An unrotated token expires two years after
+    issue. Leadspace generates the replacement, notifies the customer ahead of
+    the end of the token lifecycle (10 working days' notice per the Discovery
+    API docs), and deprecates the old token once migration is confirmed.
+failure_modes:
+  - status: 401
+    meaning: Wrong credentials, or credentials have expired
+  - status: 403
+    meaning: Program ID is invalid (Discovery API)
+  - status: 427
+    meaning: Insufficient credits, or the program ID is invalid
