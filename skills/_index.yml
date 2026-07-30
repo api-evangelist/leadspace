@@ -1,0 +1,47 @@
+generated: '2026-07-19'
+method: generated
+source: >-
+  Generated from openapi/ (which was itself generated from Leadspace's published
+  technical specifications) plus conventions/, errors/, and rate-limits/.
+  Leadspace publishes no AGENTS.md or first-party agent skills.
+skills:
+  - file: leadspace-enrich-record.md
+    name: Enrich a person or company record with Leadspace
+    description: >-
+      Real-time single-record enrichment against the Universal Graph, with
+      minimum-input rules, match-confidence gating, and credit/rate-limit
+      handling.
+    api: openapi/leadspace-enrichment-openapi.yml
+    operations:
+      - createAuthorizationToken
+      - enrichSingleRecord
+  - file: leadspace-bulk-enrich-and-poll.md
+    name: Bulk enrich records with Leadspace and collect the results
+    description: >-
+      Batch up to 500 records per POST, collect via callback or polling, and
+      avoid double-spending credits in the absence of an idempotency key.
+    api: openapi/leadspace-enrichment-openapi.yml
+    operations:
+      - createAuthorizationToken
+      - enrichBulkRecords
+      - getBulkEnrichmentResults
+      - bulkCompleteCallback
+  - file: leadspace-discover-contacts.md
+    name: Discover net-new contacts inside target accounts with Leadspace
+    description: >-
+      Expand up to 500 accounts into persona-ranked contacts with required
+      contact information, then collect results.
+    api: openapi/leadspace-discovery-openapi.yml
+    operations:
+      - discoverCompanyContacts
+      - getDiscoveryResults
+      - discoveryCompleteCallback
+  - file: leadspace-refresh-intent.md
+    name: Refresh buyer intent for accounts with Leadspace
+    description: >-
+      Weekly intent refresh returning surging topics and configurable
+      intent-model score bands, with guidance on interpreting them.
+    api: openapi/leadspace-intent-openapi.yml
+    operations:
+      - scoreCompanyIntent
+      - getIntentResults

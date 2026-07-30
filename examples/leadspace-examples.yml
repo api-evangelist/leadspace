@@ -1,0 +1,113 @@
+generated: '2026-07-19'
+method: searched
+source: >-
+  Sample request and response bodies published verbatim in the Leadspace
+  help-center technical specifications. Values that Leadspace published as
+  illustrative credentials in its own docs are reproduced here as-is; they are
+  documentation samples, not live secrets.
+examples:
+  - name: Single enrichment request
+    operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+    docs: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+    media_type: application/json
+    body:
+      person:
+        email: ''
+        title: ''
+        first_name: ''
+        last_name: ''
+        person_phone: ''
+        person_country: ''
+        linkedinUrl: ''
+      company:
+        lsid: ''
+        ugLsid: ''
+        name: ''
+        website: ''
+        companyLinkedinUrl: ''
+        address:
+          state: ''
+          city: ''
+          postalcode: ''
+          street: ''
+          country: ''
+      external_id: ''
+      custom_fields:
+      - name: ''
+        value: ''
+  - name: OAuth 2.0 authorization request
+    operation: openapi/leadspace-enrichment-openapi.yml#createAuthorizationToken
+    docs: https://support.leadspace.com/hc/en-us/articles/360000827409-API-v4-OAuth-2-0-Diagram
+    media_type: application/json
+    body:
+      user: d2224b84-969e-4bf1-8a98-3f4601b3e
+      pass: Hcdisd0QXk535IW8jW5vEs6vBczNfYtz5RNm9s4frM8CRGWGhxDAiMslGlWxTk6r90gZJ
+      audience: API_GATEWAY
+    note: Illustrative Program ID and secret published by Leadspace in its own documentation.
+  - name: OAuth 2.0 authorization response
+    operation: openapi/leadspace-enrichment-openapi.yml#createAuthorizationToken
+    docs: https://support.leadspace.com/hc/en-us/articles/360000827409-API-v4-OAuth-2-0-Diagram
+    media_type: application/json
+    body:
+      token: <JWT bearer token>
+      refreshToken: <opaque refresh token>
+      expiration: 1520262937
+    note: >-
+      Token values elided; the published sample contains an expired
+      documentation JWT. `expiration` is epoch seconds and the token lasts 24
+      hours.
+  - name: OAuth 2.0 refresh request
+    operation: openapi/leadspace-enrichment-openapi.yml#refreshAuthorizationToken
+    docs: https://support.leadspace.com/hc/en-us/articles/360000827409-API-v4-OAuth-2-0-Diagram
+    media_type: application/json
+    body:
+      user: d222b84-989e-4bf1-8c08-3f469db3e
+      refreshToken: PJuzr74BoXfsv62GMpDFgprYrjI5q
+  - name: Intent scoring request
+    operation: openapi/leadspace-intent-openapi.yml#scoreCompanyIntent
+    docs: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+    media_type: application/json
+    body:
+      data:
+      - company:
+          name: null
+          website: null
+          phone: null
+          address:
+            country: null
+            state: null
+            city: null
+          external_id: null
+      external_bulk_id: null
+  - name: Bulk job accepted response
+    operation: openapi/leadspace-intent-openapi.yml#scoreCompanyIntent
+    docs: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+    media_type: application/json
+    status: 202
+    body:
+      id: /v1/intent/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
+  - name: Bulk completion callback payload
+    operation: openapi/leadspace-enrichment-openapi.yml#bulkCompleteCallback
+    docs: https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+    media_type: application/json
+    body:
+      bulkId: <Leadspace bulk ID>
+      callbackMethod:
+        callbackUrl: https://your-host/leadspace/complete
+        pollingUrl: /v3/enrichment/results/<Leadspace bulk ID>
+      bulkStatus: COMPLETED
+      successRecords: 480
+      personEnriched: 431
+      companyEnriched: 476
+    note: >-
+      Field names and bulkStatus enum are published verbatim; the counts and
+      URLs are shape illustrations.
+  - name: Error envelope
+    operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+    docs: https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+    media_type: application/json
+    body:
+      error: <error description>
+      tracking_id: <Leadspace tracking identifier>
+      request_timestamp: '2015-05-03T15:38:45Z'
+      details: <details of an error>

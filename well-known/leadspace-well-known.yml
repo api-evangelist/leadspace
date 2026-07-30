@@ -1,0 +1,59 @@
+generated: '2026-07-19'
+method: searched
+source: live probe of /.well-known/ paths on every Leadspace host in apis.yml + openapi servers[]
+result: none
+summary: >-
+  Leadspace publishes no /.well-known/ discovery surface. Every path returns 404
+  on the marketing host and the API gateway. The Studio SPA answers 200 to any
+  path with its index.html catch-all, which is a soft 404 and not a real
+  document — no file was saved.
+hosts:
+  - host: https://www.leadspace.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://apigw.leadspace.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://studio.leadspace.com
+    note: >-
+      Angular SPA; all paths return 200 with text/html index.html. Treated as
+      soft 404 — no discovery documents exist.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        valid: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        valid: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        valid: false
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        valid: false
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        valid: false

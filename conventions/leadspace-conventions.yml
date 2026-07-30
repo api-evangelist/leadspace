@@ -1,0 +1,115 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/sections/201997649-API
+description: >-
+  Cross-cutting request/response semantics for the Leadspace API gateway,
+  captured from the published v4 technical specifications and derived from the
+  OpenAPI in openapi/.
+transport:
+  protocol: https
+  required: true
+  encoding: UTF-8
+media_types:
+  request: application/json
+  response: application/json
+  spec: RFC 7159
+date_format:
+  standard: ISO 8601
+  timezone: UTC
+  example: '2015-05-03T15:38:45Z'
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: "Bearer API_KEY"
+  detail: authentication/leadspace-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    Leadspace does not document an idempotency key or a replay-safe retry
+    contract. `external_id` (per record) and `external_bulk_id` (per request)
+    are correlation identifiers echoed back on the result and are explicitly
+    documented as NOT used for processing, so they do not deduplicate repeated
+    submissions.
+correlation:
+  record_level_field: external_id
+  request_level_field: external_bulk_id
+  behavior: >-
+    Echoed verbatim into the corresponding result object. Not used for
+    processing.
+tracing:
+  field: tracking_id
+  location: error response body
+  note: >-
+    Leadspace returns a `tracking_id` plus `request_timestamp` in the JSON
+    error envelope for support inspection. There is no documented request-id
+    response header on success.
+pagination:
+  supported: false
+  note: >-
+    The API is job-oriented rather than collection-oriented. Volume is bounded
+    at submission time (max 500 records per bulk POST; 1-100 discovery results
+    per account) rather than paged on read.
+async_pattern:
+  style: submit-then-poll-or-callback
+  submit_response: 202 Accepted
+  submit_body_field: id
+  submit_body_format: /<apiversion>/<service>/results/<Leadspace bulk ID>
+  poll_method: GET
+  poll_semantics:
+    '200': results are ready
+    '204': still processing
+    '404': results not found
+  callback:
+    supported: true
+    request_field: callbackUrl
+    detail: asyncapi/leadspace-callbacks-webhooks.yml
+batching:
+  bulk_max_records_per_request: 500
+  discovery_max_accounts_per_request: 500
+  discovery_results_per_account:
+    min: 1
+    max: 100
+    default: 10
+  backlog: Leadspace holds up to 100,000 leads in the processing backlog
+versioning:
+  scheme: uri-path
+  note: >-
+    Version segments are per service rather than uniform across the gateway.
+    Enrichment v4 submission paths are unversioned (/enrichment/enrich/*) while
+    polling is /v3/enrichment/results/, discovery is /v2/expansion/company with
+    /v1/expansion/results/, and intent is /v1/intent/. The underlying data graph
+    is versioned separately (v3 legacy, v4 Universal Graph).
+  detail: lifecycle/leadspace-lifecycle.yml
+error_envelope:
+  format: proprietary-json
+  rfc9457: false
+  fields:
+    - error
+    - tracking_id
+    - request_timestamp
+    - details
+  note: >-
+    The body may or may not be present on 4xx/5xx; the docs instruct clients to
+    ignore the body on 401. Record-level failures inside a successful bulk are
+    reported per record, not as HTTP errors.
+  detail: errors/leadspace-problem-types.yml
+rate_limiting:
+  signaled_by: HTTP 429
+  headers: none documented
+  detail: rate-limits/leadspace-rate-limits.yml
+credits:
+  metered: true
+  exhaustion_status: 427
+  note: >-
+    Leadspace uses a non-standard 427 status to signal credit exhaustion or an
+    invalid program ID; clients must treat it as a distinct, non-retriable
+    condition.
+retry_guidance:
+  retriable:
+    - 5XX
+  non_retriable:
+    - 400
+    - 401
+    - 403
+    - 427
+  source: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API

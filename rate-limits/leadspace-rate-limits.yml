@@ -1,0 +1,53 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+policy: >-
+  Leadspace's rate limiting policy is based on the customer's program-type
+  tiered SLA, expressed as transactions per second (TPS). Requests beyond the
+  contracted TPS are rejected with HTTP 429. There are no documented rate-limit
+  response headers.
+signal:
+  status_code: 429
+  headers: none documented
+rate_limits:
+  - name: Single Direct API
+    api: Leadspace Enrichment API
+    limit_count: 30
+    limit_unit: transactions per second
+    window: second
+    note: >-
+      One transaction is a single API call. 30 TP/s allows up to 1,800 records
+      per minute before exceeding the limit.
+    source: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  - name: Bulk API
+    api: Leadspace Enrichment API
+    limit_count: 30
+    limit_unit: transactions per second
+    window: second
+    note: >-
+      One transaction is a single API call carrying up to 500 records, so the
+      theoretical ceiling is 15,000 records per second. Leadspace does not
+      enforce a limit on concurrent connections; the bulk rate limit governs the
+      rate at which Leadspace begins processing submitted leads.
+    source: https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+quotas:
+  - name: Bulk request size
+    limit_count: 500
+    limit_unit: records per POST
+  - name: Discovery request size
+    limit_count: 500
+    limit_unit: accounts per bulk request
+  - name: Discovery results per account
+    limit_count: 100
+    limit_unit: leads per expanded account
+    note: Configurable 1-100 via limits.resultPerAccount; defaults to 10.
+  - name: Processing backlog
+    limit_count: 100000
+    limit_unit: leads held in backlog while other requests process
+credits:
+  metered: true
+  exhaustion_status: 427
+  note: >-
+    Credit exhaustion is separate from rate limiting and returns HTTP 427.
+    Allocation is handled by the Customer Success Manager and
+    support@leadspace.com.

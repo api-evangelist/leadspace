@@ -1,0 +1,46 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Leadspace Intent Only API
+  version: 1.0.0
+extends: openapi/leadspace-intent-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-generated: '2026-07-19'
+      x-apievangelist-method: generated
+      x-apievangelist-source: >-
+        Generated from Leadspace's published technical specifications in the
+        Leadspace help center. Leadspace publishes no machine-readable OpenAPI.
+      x-apievangelist-artifacts:
+        authentication: authentication/leadspace-authentication.yml
+        conventions: conventions/leadspace-conventions.yml
+        errors: errors/leadspace-problem-types.yml
+        error_codes: errors/leadspace-error-codes.yml
+        lifecycle: lifecycle/leadspace-lifecycle.yml
+        rate_limits: rate-limits/leadspace-rate-limits.yml
+        data_model: data-model/leadspace-data-model.yml
+        webhooks: asyncapi/leadspace-callbacks-webhooks.yml
+        conformance: conformance/leadspace-conformance.yml
+  - target: $.info
+    update:
+      x-idempotency:
+        supported: false
+        note: >-
+          Leadspace documents no idempotency key. external_id and
+          external_bulk_id are correlation-only and explicitly not used for
+          processing, so retries re-consume credits.
+  - target: $.info
+    update:
+      x-rate-limit:
+        transactions_per_second: 30
+        basis: customer program-type tiered SLA
+        signal: HTTP 429
+        headers: none documented
+  - target: $.info
+    update:
+      x-credit-metering:
+        metered: true
+        exhaustion_status: 427
+        note: >-
+          427 is a non-standard status Leadspace uses for credit exhaustion or
+          an invalid program ID. Treat as terminal, not retriable.

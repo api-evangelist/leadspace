@@ -1,0 +1,22 @@
+{
+  "provider": "leadspace",
+  "sources": [
+    "leadspace-authorization-api-openapi.yml",
+    "leadspace-discovery-api-openapi.yml",
+    "leadspace-enrichment-api-openapi.yml",
+    "leadspace-intent-api-openapi.yml",
+    "leadspace-results-api-openapi.yml"
+  ],
+  "outputs": [
+    "leadspace-authorization-api-openapi.yml",
+    "leadspace-discovery-api-openapi.yml",
+    "leadspace-enrichment-api-openapi.yml",
+    "leadspace-intent-api-openapi.yml",
+    "leadspace-results-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

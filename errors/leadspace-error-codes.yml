@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+description: >-
+  Record-level error codes. These appear when a bulk request was itself valid
+  (HTTP 202) but processing failed for an individual record inside the batch,
+  so they never surface as HTTP status codes. Complements
+  errors/leadspace-problem-types.yml, which covers the HTTP layer.
+scope: per-record, inside a successful bulk job
+error_codes:
+  - code: '1100'
+    description: Internal Error
+    cause: Leadspace internal error while processing the record.
+    action: >-
+      Retriable. Resubmit the affected record; contact support@leadspace.com
+      with the tracking id if it persists.
+  - code: '1200'
+    description: Invalid Input
+    cause: >-
+      The record did not pass advanced input validation. For example, records
+      for which First and Last Names were not provided are tagged Invalid
+      Input.
+    action: >-
+      Not retriable as submitted. Supply the minimum matching fields — Company
+      Name for account enrichment; First Name, Last Name, and one of Company
+      Name / Email / Website for person enrichment.
+bulk_status_values:
+  - value: COMPLETED
+    meaning: The bulk finished processing.
+  - value: INSUFFICIENT_CREDITS
+    meaning: The bulk halted because the program ran out of credits.
+  - value: INTERNAL_ERROR
+    meaning: The bulk failed inside Leadspace.
+record_status_values:
+  - value: Success
+  - value: Invalid Input
+enrichment_status_values:
+  - value: Not Enriched
+  - value: Company Enriched
+  - value: Person Enriched
+  - value: Person & Company Enriched

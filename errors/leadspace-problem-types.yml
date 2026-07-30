@@ -1,0 +1,84 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+format: proprietary-json
+rfc9457: false
+envelope:
+  content_type: application/json
+  fields:
+    error: Error description
+    tracking_id: Leadspace tracking identifier, for further inspection of this request
+    request_timestamp: Timestamp assigned to the request when it reached Leadspace servers
+    details: The details of an error
+  note: >-
+    The response body may or may not exist. On 401 the docs instruct clients to
+    ignore the body entirely.
+problems:
+  - status: 400
+    title: Invalid or insufficient input
+    description: >-
+      The request failed due to insufficient basic input, or the JSON format is
+      invalid.
+    remediation: >-
+      Account enrichment requires Company Name. Person enrichment requires First
+      Name, Last Name, and one of Company Name, Email Address, or Website.
+    retriable: false
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+  - status: 401
+    title: Unauthorized
+    description: Wrong credentials, or credentials have expired.
+    remediation: >-
+      Verify the Authorization header is 'Bearer API_KEY'. If using OAuth 2.0,
+      refresh the token — tokens expire every 24 hours.
+    retriable: false
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+  - status: 403
+    title: Invalid program
+    description: Program ID is invalid.
+    retriable: false
+    source_operation: openapi/leadspace-discovery-openapi.yml#discoverCompanyContacts
+  - status: 405
+    title: Invalid HTTP method
+    description: The endpoint was called with an unsupported HTTP method.
+    retriable: false
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+  - status: 415
+    title: Bad or missing HTTP headers
+    description: Required headers are absent or malformed.
+    remediation: Send Content-Type application/json.
+    retriable: false
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+  - status: 427
+    title: Insufficient credits
+    description: >-
+      Insufficient credits to process this request, or the program ID is
+      invalid. Non-standard status code specific to Leadspace.
+    remediation: >-
+      Contact the Customer Success Manager and support@leadspace.com for credit
+      allocation.
+    retriable: false
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+  - status: 429
+    title: Rate limit exceeded
+    description: >-
+      The maximum concurrent request / transactions-per-second limit for the
+      customer's program tier was reached or exceeded.
+    remediation: Throttle to the contracted TPS; see rate-limits/leadspace-rate-limits.yml.
+    retriable: true
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+  - status: 500
+    title: Server error
+    description: Server error and its variants (500-504). Body carries error code, timestamp, tracking id.
+    retriable: true
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+poll_semantics:
+  - status: 204
+    title: Still processing
+    description: >-
+      The bulk job is accepted but not complete. Not an error — continue
+      polling.
+    source_operation: openapi/leadspace-enrichment-openapi.yml#getBulkEnrichmentResults
+  - status: 404
+    title: Results not found
+    description: No results exist for the supplied bulk identifier.
+    source_operation: openapi/leadspace-enrichment-openapi.yml#getBulkEnrichmentResults

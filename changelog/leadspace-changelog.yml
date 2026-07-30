@@ -1,0 +1,61 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/categories/7154652740626-Release-Notes
+url: https://support.leadspace.com/hc/en-us/categories/7154652740626-Release-Notes
+scheme: dated-release-notes
+cadence: irregular (monthly to quarterly)
+current_version: v4 (Leadspace Universal Graph)
+note: >-
+  Release notes are published as help-center articles in the Release Notes
+  category. They are product-level notes covering Studio, the data graph, and
+  enrichment behaviour rather than a per-endpoint API changelog; there is no
+  machine-readable feed. Recent window captured below.
+entries:
+  - version: April 2026
+    date: '2026-05-06'
+    url: https://support.leadspace.com/hc/en-us/articles/27273051039900-Leadspace-Release-Notes-April-2026
+    breaking: false
+    additions:
+      - >-
+        Studio Segment Builder updates for Universal Graph (v4) customers:
+        ingest files for suppression and as a base list for contact discovery.
+      - >-
+        Discover People filters extended — filter by up to 5 Leadspace Standard
+        Personas, by Required Contact Information (email, phone, or a
+        combination), and by Job Function.
+      - >-
+        Use an existing Company List, an ingested file, or an existing segment
+        as a data source for Discover People.
+      - >-
+        New Exclude filter options allow an existing segment or data source to
+        be used for suppression, up to 100k records.
+      - >-
+        New Person Matching Confidence Level (Very Low / Low / Medium / High)
+        alongside the existing Company Matching Confidence Level, for Universal
+        Graph (v4) customers.
+    changes:
+      - Improved company matching ranking and logic.
+      - >-
+        Improved recognition of common words in company input data such as
+        therapeutics, biotech, diagnostics, incorporation.
+      - >-
+        Internal Company Quality Score incorporated into match ranking,
+        reflecting source reliability, data and profile completeness, and
+        prioritization of larger established companies.
+      - Better handling of multi-word company domains during matching.
+  - version: Q2 2025
+    date: '2025-05-20'
+    url: https://support.leadspace.com/hc/en-us/articles/20173670455964-Leadspace-Release-Notes-Q2-2025
+    breaking: false
+  - version: August 22, 2022
+    date: '2022-08-22'
+    url: https://support.leadspace.com/hc/en-us/articles/5704582784284-Release-Notes-August-22-2022
+    breaking: false
+  - version: August 15, 2022
+    date: '2022-08-15'
+    url: https://support.leadspace.com/hc/en-us/articles/7155110165394-Release-Notes-August-15-2022
+    breaking: false
+  - version: June 20, 2022
+    date: '2022-07-28'
+    url: https://support.leadspace.com/hc/en-us/articles/6870742440594-Release-Notes-June-20-2022
+    breaking: false

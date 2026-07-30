@@ -1,0 +1,63 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/sections/360002292999-SmartForms
+description: >-
+  Client-side / embeddable Leadspace surfaces, distinct from server-side API
+  integration. Leadspace ships no published SDK or component npm package; the
+  embeddable surface is a hosted script tag issued per customer.
+families:
+  - name: SmartForms
+    kind: embedded-script
+    url: https://www.leadspace.com/products/leadspace-smartforms/
+    docs: https://support.leadspace.com/hc/en-us/articles/360007920100-SmartForms-Overview
+    description: >-
+      Real-time inbound form validation and enrichment. A single line of
+      JavaScript placed on the landing page containing the form fires on page
+      load, calls the Leadspace API, performs a lookup on the email domain
+      entered into the email field, and writes enriched values into hidden
+      fields on the form before submit. Works with any form technology.
+    loader:
+      type: script-tag
+      distribution: >-
+        Leadspace generates a unique token and script tag per customer. There is
+        no public CDN URL or package — request the tag from Leadspace.
+      placement: >-
+        Any landing page URL containing the form from which enrichment should
+        fire.
+    configuration:
+      mechanism: hidden form fields
+      note: >-
+        A hidden field is created in the marketing automation platform for each
+        SmartForms data point to be appended. Up to 120+ data points can be
+        appended in real time on submit, including Site, Headquarter, Domestic
+        Headquarter, and Global Headquarter firmographics (employee count,
+        annual revenue, industry).
+      field_dictionary: https://support.leadspace.com/hc/en-us/articles/360012057240-Leadspace-for-SmartForms-Field-Dictionary
+    deployment_paths:
+      - name: Direct script tag
+        docs: https://support.leadspace.com/hc/en-us/articles/5825862772380-SmartForms-Setup-Guide
+      - name: Google Tag Manager
+        docs: https://support.leadspace.com/hc/en-us/articles/360015246959-SmartForms-Implementation-with-Google-Tag-Manager-GTM
+      - name: Marketo forms
+        docs: https://support.leadspace.com/hc/en-us/articles/4818317164562-SmartForms-Linking-to-Marketo-Forms
+    faq: https://support.leadspace.com/hc/en-us/articles/360007902499-SmartForms-FAQs
+  - name: Leadspace Studio
+    kind: hosted-web-application
+    url: https://studio.leadspace.com
+    docs: https://support.leadspace.com/hc/en-us/sections/5726570265116-Leadspace-Studio
+    description: >-
+      Hosted Angular web application for segment building, contact discovery,
+      list ingest, and suppression. Not embeddable — listed as the first-party
+      console surface that fronts the same data graph as the API.
+    embeddable: false
+  - name: Leadspace Sidekick
+    kind: hosted-application
+    docs: https://support.leadspace.com/hc/en-us/categories/27780316704540-Leadspace-Sidekick
+    description: >-
+      Seller-facing Leadspace application, available in Solo and Enterprise
+      editions.
+    embeddable: false
+not_found:
+  - web components / custom elements
+  - npm-published element library
+  - embedded dashboard iframe product

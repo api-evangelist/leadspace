@@ -1,0 +1,66 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+type: Webhooks
+spec_type: none
+asyncapi_published: false
+note: >-
+  Leadspace publishes no AsyncAPI document and no general event bus. It does
+  document a real outbound callback surface: bulk enrichment and bulk discovery
+  jobs accept an optional callbackUrl and Leadspace POSTs a completion payload
+  to it when processing finishes. That callback catalog is captured here and is
+  modelled as an OpenAPI `callbacks` object in openapi/. SmartForms is a
+  browser-side script, not a webhook.
+delivery:
+  direction: outbound (Leadspace -> customer)
+  transport: https
+  method: POST
+  content_type: application/json
+  subscription: per-request, via the callbackUrl field in the job submission body
+  retries: not documented
+  signing: not documented
+  authentication: not documented — secure the receiving endpoint with an unguessable URL
+webhooks:
+  - name: bulk-enrichment-complete
+    trigger: A bulk enrichment job submitted to POST /enrichment/enrich/bulk finishes processing
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichBulkRecords
+    docs: https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+    payload:
+      bulkId: string — the bulk ID
+      callbackMethod.callbackUrl: string — the URL Leadspace is calling back
+      callbackMethod.pollingUrl: string — URL for polling the completed bulk
+      bulkStatus: string — COMPLETED | INSUFFICIENT_CREDITS | INTERNAL_ERROR
+      successRecords: integer — records processed successfully
+      personEnriched: integer — records where the person was enriched
+      companyEnriched: integer — records where the company was enriched
+    consumer_action: >-
+      On bulkStatus COMPLETED, GET the pollingUrl to retrieve results. On
+      INSUFFICIENT_CREDITS, stop and contact the CSM. On INTERNAL_ERROR,
+      resubmit.
+  - name: bulk-discovery-complete
+    trigger: A bulk discovery job submitted to POST /v2/expansion/company finishes processing
+    source_operation: openapi/leadspace-discovery-openapi.yml#discoverCompanyContacts
+    docs: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API
+    payload:
+      bulkId: string — the bulk ID
+      callbackMethod.callbackUrl: string — the URL Leadspace is calling back
+      callbackMethod.pollingUrl: string — URL for polling the completed bulk
+      bulkStatus: string — detailed status of the bulk
+    consumer_action: GET the pollingUrl to retrieve expansion results.
+  - name: intent-scoring-complete
+    trigger: An intent scoring job submitted to POST /v1/intent/score/ finishes processing
+    source_operation: openapi/leadspace-intent-openapi.yml#scoreCompanyIntent
+    docs: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+    payload:
+      bulkId: string
+      callbackMethod.callbackUrl: string
+      callbackMethod.pollingUrl: string
+      bulkStatus: string — COMPLETED | INSUFFICIENT_CREDITS | INTERNAL_ERROR
+      successRecords: integer
+      personEnriched: integer
+      companyEnriched: integer
+fallback:
+  pattern: polling
+  note: >-
+    Where no callbackUrl is supplied, clients poll the results URI returned in
+    the 202 body. 204 means still processing.

@@ -1,0 +1,59 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.leadspace.com/hc/en-us/sections/201997649-API
+versioning:
+  scheme: uri-path
+  current: v4
+  note: >-
+    Two version axes. The data graph is versioned as v3 (legacy) and v4
+    (Leadspace Universal Graph). The HTTP paths are versioned per service and
+    are not uniform: enrichment submission is unversioned
+    (/enrichment/enrich/single, /enrichment/enrich/bulk) while enrichment
+    polling is /v3/enrichment/results/, discovery is /v2/expansion/company with
+    /v1/expansion/results/, and intent is /v1/intent/.
+  versions:
+    - version: v4
+      status: current
+      label: Leadspace Universal Graph
+      docs: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+    - version: v3
+      status: legacy
+      docs: https://support.leadspace.com/hc/en-us/articles/115006003389-Leadspace-Single-API-v3-Technical-Specifications
+deprecation:
+  policy_url: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  sunset_header: false
+  deprecation_header: false
+  mechanism: >-
+    Deprecation is managed relationally rather than in-protocol. Leadspace does
+    not emit RFC 8594 Sunset or Deprecation headers; the Integration Manager
+    notifies the customer directly.
+  credential_deprecation:
+    recommended_rotation_months: 6
+    hard_expiry_years: 2
+    notice_period: 10 working days prior to the end of the token lifecycle
+    process: >-
+      Leadspace generates a replacement perpetual token and emails it, notifies
+      the customer before the end of the token lifecycle, and deprecates the old
+      token once the customer has migrated.
+  announced_field_sunsets:
+    - field: company.ls_id
+      status: deprecated
+      sunset: '2026'
+      replacement: company.ug_company_id
+      note: >-
+        Documented as "a v3 artifact that will be sunset in 2026" that mirrors
+        the UG Company ID value.
+      source: https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+status_page: https://status.leadspace.com/
+status_page_provider: Better Stack
+status_page_docs: https://support.leadspace.com/hc/en-us/sections/6479403147026-Status-Pages
+sla:
+  published: false
+  note: >-
+    No public SLA document. The rate-limiting policy is described as a
+    "program type tiered SLA" negotiated per customer contract.
+changelog: changelog/leadspace-changelog.yml
+support:
+  channel: https://support.leadspace.com/hc/en-us
+  email: support@leadspace.com
+deprecated_operations: []

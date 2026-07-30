@@ -1,0 +1,88 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/leadspace-enrichment-openapi.yml, openapi/leadspace-discovery-openapi.yml, openapi/leadspace-intent-openapi.yml
+search_result: >-
+  No official or third-party Leadspace MCP server was found in the provider's
+  docs, on the leadspace GitHub organization (3 public repos, all forks of
+  unrelated Java/Node libraries), on npm, or in the MCP registry as of
+  2026-07-19. The tool list below is a candidate derived from the documented
+  operations, not a published server.
+server:
+  name: leadspace
+  transport: http
+  url: null
+  auth:
+    type: bearer
+    env: LEADSPACE_API_KEY
+    note: >-
+      Bearer token issued per program. Where OAuth 2.0 is used, exchange
+      LEADSPACE_PROGRAM_ID + LEADSPACE_SECRET at
+      https://apigw.leadspace.com/oauth/authorize with audience API_GATEWAY;
+      tokens expire every 24 hours.
+tools:
+  - name: enrich_record
+    description: >-
+      Enrich a single person and/or company record against the Leadspace
+      Universal Graph. Requires company name for account enrichment, or first
+      name + last name + one of company/email/website for person enrichment.
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+    action_class: acting
+    consequence: write
+    note: Consumes enrichment credits.
+  - name: enrich_records_bulk
+    description: >-
+      Submit up to 500 records for asynchronous enrichment. Returns a polling
+      URI; optionally accepts a callbackUrl.
+    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichBulkRecords
+    action_class: acting
+    consequence: write
+  - name: get_bulk_enrichment_results
+    description: Poll for the results of a bulk enrichment job. 204 means still processing.
+    source_operation: openapi/leadspace-enrichment-openapi.yml#getBulkEnrichmentResults
+    action_class: connected
+    consequence: read
+  - name: discover_company_contacts
+    description: >-
+      Expand up to 500 accounts into ranked net-new contacts, filtered by
+      persona, region, country, and required contact information.
+    source_operation: openapi/leadspace-discovery-openapi.yml#discoverCompanyContacts
+    action_class: acting
+    consequence: write
+  - name: get_discovery_results
+    description: Poll for the results of a bulk discovery (expansion) job.
+    source_operation: openapi/leadspace-discovery-openapi.yml#getDiscoveryResults
+    action_class: connected
+    consequence: read
+  - name: score_company_intent
+    description: >-
+      Submit companies for buyer-intent refresh; returns surging topics and
+      scored intent-modeling projects.
+    source_operation: openapi/leadspace-intent-openapi.yml#scoreCompanyIntent
+    action_class: acting
+    consequence: write
+  - name: get_intent_results
+    description: Poll for the results of an intent scoring job.
+    source_operation: openapi/leadspace-intent-openapi.yml#getIntentResults
+    action_class: connected
+    consequence: read
+  - name: refresh_access_token
+    description: Exchange a refreshToken for a new 24-hour bearer token.
+    source_operation: openapi/leadspace-enrichment-openapi.yml#refreshAuthorizationToken
+    action_class: acting
+    consequence: write
+guardrails:
+  - >-
+    Every enrichment, discovery, and intent call is metered against a credit
+    balance; exhaustion returns HTTP 427. Agents should budget calls and treat
+    427 as terminal, not retriable.
+  - >-
+    Single API is capped at 30 transactions per second per the customer's tiered
+    SLA; back off on 429.
+  - >-
+    There is no idempotency key. Retrying a submission re-consumes credits.
+    Prefer polling an existing bulk over resubmitting it.
+  - >-
+    Responses carry personal data about identified individuals. Handle under the
+    customer's DPA; Leadspace states it does not process special categories of
+    data.

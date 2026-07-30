@@ -1,0 +1,184 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/leadspace-enrichment-openapi.yml, openapi/leadspace-discovery-openapi.yml, openapi/leadspace-intent-openapi.yml
+docs: https://support.leadspace.com/hc/en-us/articles/360006155659-Available-Leadspace-Fields-and-Custom-Fields-Guide
+description: >-
+  Entity graph of the Leadspace Universal Graph (v4) as exposed through the
+  enrichment, discovery, and intent APIs. Leadspace is an enrichment graph
+  rather than a CRUD resource API: the customer supplies a partial record and
+  Leadspace returns the resolved entity plus its hierarchy, signals, and scores.
+identifiers:
+  - name: ug_company_id
+    entity: Company
+    description: Leadspace unique company identifier in the Universal Graph.
+  - name: ls_id
+    entity: Company
+    description: >-
+      Legacy v3 company identifier that mirrors ug_company_id. Deprecated,
+      sunset announced for 2026.
+    deprecated: true
+  - name: ug_person_id
+    entity: Person
+    description: Unique Leadspace person identifier.
+  - name: external_id
+    entity: request record
+    description: Customer-supplied correlation id echoed onto the result.
+  - name: external_bulk_id
+    entity: request
+    description: Customer-supplied correlation id for a whole bulk request.
+  - name: bulkId
+    entity: BulkJob
+    description: Leadspace-issued identifier for an asynchronous job.
+entities:
+  - name: Person
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/EnrichedPerson
+    primary_key: ug_person_id
+    description: >-
+      A resolved individual with title, department, standardized job level,
+      verified email and phone, LinkedIn profile, and location.
+    relationships:
+      - type: belongs_to
+        target: Company
+        via: enrichment request pairing (person and company are resolved together)
+      - type: has_one
+        target: Address
+        via: person.address
+      - type: has_many
+        target: ProfileScore
+        via: person.analytics.scores
+  - name: Company
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/EnrichedCompany
+    primary_key: ug_company_id
+    description: >-
+      A resolved account with firmographics (SIC, NAICS, industry, revenue,
+      employees), ownership, location, and technology signals.
+    relationships:
+      - type: has_one
+        target: Address
+        via: company.address
+      - type: has_one
+        target: CompanyFamilyTree
+        via: company.family_tree
+      - type: has_one
+        target: DepartmentSize
+        via: company.department_size
+      - type: has_one
+        target: CompanyFunding
+        via: company.funding
+      - type: has_one
+        target: CompanyInvestors
+        via: company.investors
+      - type: has_one
+        target: IntentModeling
+        via: company.intent_modeling_v4
+      - type: has_many
+        target: Person
+        via: discovery expansion (POST /v2/expansion/company)
+  - name: CompanyFamilyTree
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/CompanyFamilyTree
+    description: >-
+      The corporate hierarchy around the matched company. Node types are DU
+      (Domestic Ultimate), GU (Global Ultimate), SITE (office level), and the
+      premium PARENT, HQ, and SU (Sub Ultimate) types.
+    relationships:
+      - type: has_many
+        target: Company
+        via: family_tree.companies[]
+      - type: belongs_to
+        target: Company
+        via: the matched company the tree is anchored on
+  - name: Address
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/EnrichedAddress
+    description: Country, state, city, region, street, and postal code.
+  - name: DepartmentSize
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/DepartmentSize
+    description: >-
+      Headcount by department — HR, sales, management, product management, IT,
+      administration, marketing, operations, R&D, business development, finance.
+    relationships:
+      - type: belongs_to
+        target: Company
+        via: company.department_size
+  - name: CompanyFunding
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/CompanyFunding
+    description: >-
+      Last round date, type, amount raised, investor count, total rounds, and
+      the Crunchbase URL.
+    relationships:
+      - type: belongs_to
+        target: Company
+        via: company.funding
+  - name: CompanyInvestors
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/CompanyInvestors
+    description: Investor company names, last investor, and the Crunchbase URL.
+    relationships:
+      - type: belongs_to
+        target: Company
+        via: company.investors
+  - name: IntentModeling
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/IntentModeling
+    description: >-
+      Weekly buyer-intent model output — model level (High/Medium/Low/NO_INTENT),
+      source (LS Intent or Bombora), surging topics, industries, top metros, and
+      domain origins.
+    relationships:
+      - type: belongs_to
+        target: Company
+        via: company.intent_modeling_v4
+      - type: has_one
+        target: IntentData
+        via: standalone refresh through the Intent Only API
+  - name: IntentData
+    schema: openapi/leadspace-intent-openapi.yml#/components/schemas/IntentData
+    description: >-
+      Standalone intent refresh payload — domain used, top surging intent
+      topics, and per-project intent scores.
+  - name: ProfileScore
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/ProfileScore
+    description: >-
+      A persona or predictive-model score with a numeric value and an A/B/C/D
+      bucket. Requires purchase of personas or predictive models.
+    relationships:
+      - type: belongs_to
+        target: Person
+        via: person.analytics.scores[]
+      - type: belongs_to
+        target: EnrichedRecord
+        via: total_scores[]
+  - name: BulkJob
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/BulkAccepted
+    primary_key: bulkId
+    description: >-
+      An asynchronous enrichment, discovery, or intent job. Status values are
+      COMPLETED, INSUFFICIENT_CREDITS, INTERNAL_ERROR.
+    relationships:
+      - type: has_many
+        target: EnrichedRecord
+        via: results[]
+  - name: EnrichedRecord
+    schema: openapi/leadspace-enrichment-openapi.yml#/components/schemas/EnrichedRecord
+    description: >-
+      The unit of enrichment output, pairing a Person and a Company with an
+      enrichment_status of Not Enriched, Company Enriched, Person Enriched, or
+      Person & Company Enriched.
+    relationships:
+      - type: has_one
+        target: Person
+        via: data.person
+      - type: has_one
+        target: Company
+        via: data.company
+quality_signals:
+  - name: matching_confidence.level
+    entity: Company
+    values: [HIGH, MEDIUM, LOW, VERY LOW]
+  - name: person matching confidence level
+    entity: Person
+    values: [High, Medium, Low, Very Low]
+    added: April 2026 release, Universal Graph (v4) only
+  - name: verification_status
+    entity: Person
+    values: [Verified, Moved, Not Verified]
+  - name: original_email_verification_status
+    entity: Person
+    values: [VALID, INVALID, UNKNOWN, CATCH-ALL]
