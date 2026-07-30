@@ -1,22 +1,237 @@
 aid: leadspace
-name: LeadSpace
-description: LeadSpace is a company surfaced as a portfolio company of battery-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: Leadspace
+description: >-
+  Leadspace is a B2B GTM Data Intelligence Cloud and customer data platform that
+  unifies buyer data, account data, and buying signals into the Leadspace
+  Universal Graph. Its API-first enrichment service resolves partial person and
+  company records into full profiles carrying firmographics (SIC, NAICS,
+  industry, revenue, employee counts), corporate family-tree hierarchy,
+  department sizes, funding and investor history, installed-base and website
+  technology signals, weekly buyer-intent models sourced from Leadspace Intent
+  and Bombora, and persona and predictive fit scores. Leadspace exposes single
+  and bulk enrichment, contact discovery (account expansion), and an
+  intent-only refresh API over a single gateway, alongside Leadspace Studio for
+  segment building and SmartForms for real-time inbound web-form enrichment. It
+  integrates with Salesforce, Marketo, Eloqua, and HubSpot. Leadspace is ISO
+  27001 certified and SOC 2 Type II audited.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/leadspace.png
 url: https://raw.githubusercontent.com/api-evangelist/leadspace/refs/heads/main/apis.yml
+type: Index
+kind: company
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - battery-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
+- B2B Data
+- Customer Data Platform
+- Data Enrichment
+- Intent Data
+- Sales Intelligence
+- Account-Based Marketing
+- Identity Resolution
+- Firmographics
+- Lead Scoring
 - Company
-apis: []
+apis:
+- aid: leadspace:leadspace-authorization-api
+  name: Leadspace Authorization API
+  description: OAuth 2.0 token issuance and refresh
+  humanURL: >-
+    https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  baseURL: https://apigw.leadspace.com
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/leadspace-authorization-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  - type: BulkDocumentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+- aid: leadspace:leadspace-discovery-api
+  name: Leadspace Discovery API
+  description: Bulk account expansion into net-new contacts
+  humanURL: >-
+    https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  baseURL: https://apigw.leadspace.com
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/leadspace-discovery-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  - type: BulkDocumentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+- aid: leadspace:leadspace-enrichment-api
+  name: Leadspace Enrichment API
+  description: Single and bulk person and company enrichment
+  humanURL: >-
+    https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  baseURL: https://apigw.leadspace.com
+  tags:
+  - Enrichment
+  properties:
+  - type: OpenAPI
+    url: openapi/leadspace-enrichment-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  - type: BulkDocumentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+- aid: leadspace:leadspace-intent-api
+  name: Leadspace Intent API
+  description: Buyer-intent scoring and refresh
+  humanURL: >-
+    https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  baseURL: https://apigw.leadspace.com
+  tags:
+  - Intent
+  properties:
+  - type: OpenAPI
+    url: openapi/leadspace-intent-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  - type: BulkDocumentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+- aid: leadspace:leadspace-results-api
+  name: Leadspace Results API
+  description: Polling for asynchronous discovery results
+  humanURL: >-
+    https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  baseURL: https://apigw.leadspace.com
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/leadspace-results-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
+  - type: BulkDocumentation
+    url: >-
+      https://support.leadspace.com/hc/en-us/articles/23687991628572-Leadspace-Bulk-API-v4-Technical-Specifications
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360011926619-Leadspace-Discovery-API
+  - type: Documentation
+    url: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
+common:
+- type: AgenticAccess
+  url: agentic-access/leadspace-agentic-access.yml
+- type: Website
+  url: https://www.leadspace.com/
+- type: DeveloperPortal
+  url: https://support.leadspace.com/hc/en-us/categories/5940743388306-Developer-Guides
+- type: Documentation
+  url: https://support.leadspace.com/hc/en-us
+- type: APIReference
+  url: https://support.leadspace.com/hc/en-us/sections/201997649-API
+- type: GettingStarted
+  url: https://support.leadspace.com/hc/en-us/categories/5778624503826-Getting-Started
+- type: Support
+  url: https://support.leadspace.com/hc/en-us
+- type: Blog
+  url: https://www.leadspace.com/blog
+- type: GitHubOrganization
+  url: https://github.com/leadspace
+- type: SignUp
+  url: https://studio.leadspace.com
+- type: TermsOfService
+  url: https://www.leadspace.com/service-support-terms
+- type: PrivacyPolicy
+  url: https://www.leadspace.com/privacy-notice
+- type: StatusPage
+  url: https://status.leadspace.com/
+- type: Deprecation
+  url: lifecycle/leadspace-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/leadspace-lifecycle.yml
+- type: ChangeLog
+  url: changelog/leadspace-changelog.yml
+- type: ChangeLogPage
+  url: https://support.leadspace.com/hc/en-us/categories/7154652740626-Release-Notes
+- type: Authentication
+  url: authentication/leadspace-authentication.yml
+- type: Conventions
+  url: conventions/leadspace-conventions.yml
+- type: ErrorCatalog
+  url: errors/leadspace-problem-types.yml
+- type: ErrorCodes
+  url: errors/leadspace-error-codes.yml
+- type: RateLimits
+  url: rate-limits/leadspace-rate-limits.yml
+- type: DataModel
+  url: data-model/leadspace-data-model.yml
+- type: Examples
+  url: examples/leadspace-examples.yml
+- type: Webhooks
+  url: asyncapi/leadspace-callbacks-webhooks.yml
+- type: Conformance
+  url: conformance/leadspace-conformance.yml
+- type: Compliance
+  url: https://support.leadspace.com/hc/en-us/articles/360012276859-General-Statement-of-Information-Security-and-Privacy
+- type: Security
+  url: https://www.leadspace.com/report-a-vulnerability
+- type: VulnerabilityDisclosure
+  url: security/leadspace-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/leadspace-domain-security.yml
+- type: WellKnown
+  url: well-known/leadspace-well-known.yml
+- type: Components
+  url: components/leadspace-components.yml
+- type: MCPServer
+  url: mcp/leadspace-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/leadspace-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
