@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leadspace Discovery Authorization Results API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Poll for bulk discovery results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw.leadspace.com/v1/expansion/results/:bulkId",
+            "params": [
+              {
+                "name": "bulkId",
+                "value": "",
+                "type": "path",
+                "description": "The Leadspace bulk identifier returned when the job was accepted"
+              }
+            ]
+          },
+          "docs": "Poll for bulk discovery results"
+        },
+        {
+          "info": {
+            "name": "Poll for bulk enrichment results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw.leadspace.com/v3/enrichment/results/:bulkId",
+            "params": [
+              {
+                "name": "bulkId",
+                "value": "",
+                "type": "path",
+                "description": "The Leadspace bulk identifier returned when the job was accepted"
+              }
+            ]
+          },
+          "docs": "Retrieves the results of a previously submitted bulk enrichment job."
+        },
+        {
+          "info": {
+            "name": "Poll for intent scoring results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw.leadspace.com/v1/intent/results/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The Leadspace bulk identifier returned when the job was accepted"
+              }
+            ]
+          },
+          "docs": "Poll for intent scoring results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

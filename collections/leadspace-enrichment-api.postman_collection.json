@@ -1,0 +1,808 @@
+{
+  "item": [
+    {
+      "id": "e14980a5-bc0c-43e1-bd6b-d3d87bf319a7",
+      "name": "Enrichment",
+      "description": {
+        "content": "Single and bulk person and company enrichment",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6b6b2675-293b-41f5-8e6e-539bf9df60d5",
+          "name": "Enrich a single person and/or company record",
+          "request": {
+            "name": "Enrich a single person and/or company record",
+            "description": {
+              "content": "Synchronously enriches one record. Account enrichment requires a company name. Person enrichment requires first name, last name, and one of company name, email address, or website.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrichment",
+                "enrich",
+                "single"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"person\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"title\": \"<string>\",\n    \"person_phone\": \"<string>\",\n    \"person_country\": \"<string>\",\n    \"linkedinUrl\": \"<string>\"\n  },\n  \"company\": {\n    \"lsid\": \"<string>\",\n    \"ugLsid\": \"<string>\",\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"companyLinkedinUrl\": \"<string>\",\n    \"address\": {\n      \"country\": \"<string>\",\n      \"state\": \"<string>\",\n      \"city\": \"<string>\",\n      \"street\": \"<string>\",\n      \"postalcode\": \"<string>\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6cfafdc-f22f-4ebd-8c02-e1783a2cb55f",
+              "name": "The enrichment request was successfully processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"external_id\": \"string\",\n  \"data\": {\n    \"person\": {\n      \"ug_person_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"title\": \"string\",\n      \"department\": \"string\",\n      \"level\": \"C Level\",\n      \"email\": \"string\",\n      \"original_email\": \"string\",\n      \"original_email_verification_status\": \"CATCH-ALL\",\n      \"verification_status\": \"Not Verified\",\n      \"verification_source\": \"Social\",\n      \"linkedin_profile\": \"string\",\n      \"phone\": \"string\",\n      \"is_retired\": \"string\",\n      \"address\": {\n        \"country\": \"string\",\n        \"state\": \"string\",\n        \"city\": \"string\",\n        \"region\": \"string\",\n        \"address\": \"string\",\n        \"zipcode\": \"string\"\n      },\n      \"analytics\": {\n        \"job_functions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"technologies\": [\n          \"string\",\n          \"string\"\n        ],\n        \"scores\": [\n          {\n            \"profile_name\": \"string\",\n            \"score\": {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"bucket\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"profile_name\": \"string\",\n            \"score\": {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"bucket\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"max_positive_score_profiles\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"company\": {\n      \"ug_company_id\": \"string\",\n      \"ls_id\": \"string\",\n      \"name\": \"string\",\n      \"original_name\": \"string\",\n      \"description\": \"string\",\n      \"website\": \"string\",\n      \"phone\": \"string\",\n      \"industry\": \"string\",\n      \"sub_industry\": \"string\",\n      \"sic\": \"string\",\n      \"sicDescription\": \"string\",\n      \"naics\": \"string\",\n      \"naicsDescription\": \"string\",\n      \"ownership\": \"string\",\n      \"linkedin_profile\": \"string\",\n      \"latitude\": \"string\",\n      \"longitude\": \"string\",\n      \"primary_location\": \"string\",\n      \"address\": {\n        \"country\": \"string\",\n        \"state\": \"string\",\n        \"city\": \"string\",\n        \"region\": \"string\",\n        \"address\": \"string\",\n        \"zipcode\": \"string\"\n      },\n      \"employees\": {\n        \"exact\": 7200.288097421757,\n        \"range\": \"string\"\n      },\n      \"revenue_dollar\": {\n        \"exact\": 9552.756245044118,\n        \"range\": \"string\"\n      },\n      \"matching_confidence\": {\n        \"level\": \"HIGH\"\n      },\n      \"family_tree\": {\n        \"companies\": [\n          {\n            \"type\": \"PARENT\",\n            \"name\": \"string\",\n            \"ls_id\": \"string\",\n            \"website\": \"string\",\n            \"phone\": \"string\",\n            \"sic\": \"string\",\n            \"naics\": \"string\",\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": \"PARENT\",\n            \"name\": \"string\",\n            \"ls_id\": \"string\",\n            \"website\": \"string\",\n            \"phone\": \"string\",\n            \"sic\": \"string\",\n            \"naics\": \"string\",\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"department_size\": {\n        \"hr\": 6794.249828506782,\n        \"sales\": 5742.757929719343,\n        \"mgmt\": 2432.037060565466,\n        \"product_mgmt\": 5705.24081444395,\n        \"it\": 202.04124244989185,\n        \"administration\": 6219.726060020587,\n        \"marketing\": 8228.096672650128,\n        \"operations\": 7686.183743205126,\n        \"rnd\": 2604.4813763182306,\n        \"business_dev\": 5175.331363110723,\n        \"finance\": 1028.2813823271108\n      },\n      \"funding\": {\n        \"last_round_investor_count\": 2791.1873328258916,\n        \"total_rounds_count\": 7080.769211416027,\n        \"last_round_date\": \"string\",\n        \"last_round_money_raised\": \"string\",\n        \"last_round_type\": \"string\",\n        \"cb_url\": \"string\"\n      },\n      \"investors\": {\n        \"cb_url\": \"string\",\n        \"last_investor_name\": \"string\",\n        \"company_investors\": \"string\"\n      },\n      \"signals\": {\n        \"fortune_500_rank\": 7896.53723197634,\n        \"fortune_1000_rank\": 9438.874832183112,\n        \"g2k_rank\": 3054.1673775659337\n      },\n      \"intent_modeling_v4\": {\n        \"model\": \"string\",\n        \"model_level\": [\n          \"Medium\",\n          \"High\"\n        ],\n        \"source\": \"string\",\n        \"cadence\": \"string\",\n        \"new_high_intent\": \"string\",\n        \"industries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"top_metros\": [\n          \"string\",\n          \"string\"\n        ],\n        \"domain_origins\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"domain_intent\": \"string\",\n      \"specialties\": [\n        \"string\",\n        \"string\"\n      ],\n      \"analytics\": {\n        \"installed_base_technologies\": [\n          \"string\",\n          \"string\"\n        ],\n        \"web_site_technologies\": [\n          \"string\",\n          \"string\"\n        ],\n        \"company_technologies_categories\": [\n          \"string\",\n          \"string\"\n        ],\n        \"customTechnologiesCategories\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"enrichment_status\": \"Company Enriched\",\n    \"cdi_matched\": \"string\",\n    \"total_scores\": [\n      {\n        \"profile_name\": \"string\",\n        \"score\": {\n          \"value\": 8249.66707590487,\n          \"bucket\": \"D\"\n        }\n      },\n      {\n        \"profile_name\": \"string\",\n        \"score\": {\n          \"value\": 6109.865397253144,\n          \"bucket\": \"D\"\n        }\n      }\n    ],\n    \"max_positive_total_score_profiles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1aa7cea9-6fc0-4cf2-89b8-d08262b6cf28",
+              "name": "The request failed due to insufficient basic input, or the JSON format is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08bc9b50-3f69-4e3e-8f20-4ba2d8a35c07",
+              "name": "Unauthorized request (wrong credentials or credentials have expired)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "618593e5-dc19-4fa9-964b-805fbdfe864c",
+              "name": "Invalid HTTP method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d1a31f8-8328-42dd-81e0-6da254ebfe06",
+              "name": "Bad or missing HTTP headers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e5da48b4-61b5-4a6c-bc03-0e02867c3b03",
+              "name": "Insufficient credits, or the program ID is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "code": 427,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4e35774-a934-4f69-aff1-540b1d891855",
+              "name": "Rate limit was exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7292039-b490-40f0-ba5d-0a7fe7da1a1f",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"title\": \"string\",\n    \"person_phone\": \"string\",\n    \"person_country\": \"string\",\n    \"linkedinUrl\": \"string\"\n  },\n  \"company\": {\n    \"lsid\": \"string\",\n    \"ugLsid\": \"string\",\n    \"name\": \"string\",\n    \"website\": \"string\",\n    \"companyLinkedinUrl\": \"string\",\n    \"address\": {\n      \"country\": \"string\",\n      \"state\": \"string\",\n      \"city\": \"string\",\n      \"street\": \"string\",\n      \"postalcode\": \"string\"\n    }\n  },\n  \"external_id\": \"<string>\",\n  \"custom_fields\": [\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4d5736f-016e-4751-8a1b-5b931fa47aba",
+          "name": "Submit a bulk enrichment job",
+          "request": {
+            "name": "Submit a bulk enrichment job",
+            "description": {
+              "content": "Accepts up to 500 records per request and returns a polling URI. An optional callbackUrl receives a notification when processing completes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "enrichment",
+                "enrich",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"person\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"title\": \"<string>\",\n        \"person_phone\": \"<string>\",\n        \"person_country\": \"<string>\",\n        \"linkedinUrl\": \"<string>\"\n      },\n      \"company\": {\n        \"lsid\": \"<string>\",\n        \"ugLsid\": \"<string>\",\n        \"name\": \"<string>\",\n        \"website\": \"<string>\",\n        \"companyLinkedinUrl\": \"<string>\",\n        \"address\": {\n          \"country\": \"<string>\",\n          \"state\": \"<string>\",\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"postalcode\": \"<string>\"\n        }\n      },\n      \"external_id\": \"<string>\",\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"person\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"title\": \"<string>\",\n        \"person_phone\": \"<string>\",\n        \"person_country\": \"<string>\",\n        \"linkedinUrl\": \"<string>\"\n      },\n      \"company\": {\n        \"lsid\": \"<string>\",\n        \"ugLsid\": \"<string>\",\n        \"name\": \"<string>\",\n        \"website\": \"<string>\",\n        \"companyLinkedinUrl\": \"<string>\",\n        \"address\": {\n          \"country\": \"<string>\",\n          \"state\": \"<string>\",\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"postalcode\": \"<string>\"\n        }\n      },\n      \"external_id\": \"<string>\",\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"callbackUrl\": \"<string>\",\n  \"external_bulk_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a5b2911-024d-444f-80f6-db6310c1701e",
+              "name": "The bulk job was successfully accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"callbackUrl\": \"<string>\",\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"/v3/enrichment/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc4c758e-539e-46ea-8efd-b84640637344",
+              "name": "The request failed due to insufficient basic input, or the JSON format is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"callbackUrl\": \"<string>\",\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a26ffb1b-8046-4d7d-bd12-3af89b764307",
+              "name": "Unauthorized request (wrong credentials or credentials have expired)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"callbackUrl\": \"<string>\",\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f5189e6-5ee1-485d-87fe-6556343d5e55",
+              "name": "Insufficient credits, or the program ID is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"callbackUrl\": \"<string>\",\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "code": 427,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3df2df73-7755-48ee-b943-1a4b67f1b81e",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "enrichment",
+                    "enrich",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"person\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"title\": \"string\",\n        \"person_phone\": \"string\",\n        \"person_country\": \"string\",\n        \"linkedinUrl\": \"string\"\n      },\n      \"company\": {\n        \"lsid\": \"string\",\n        \"ugLsid\": \"string\",\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"companyLinkedinUrl\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\",\n          \"street\": \"string\",\n          \"postalcode\": \"string\"\n        }\n      },\n      \"external_id\": \"string\",\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"callbackUrl\": \"<string>\",\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apigw.leadspace.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "895c48b2-6572-4439-8c76-25d38493e738",
+    "name": "Leadspace Discovery Authorization Enrichment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leadspace Discovery (Expansion) API finds net-new contacts inside target accounts. A bulk request expands up to 500 accounts, ranking discovered people against persona, region, and required-contact-information criteria, and returns a polling URI for asynchronous retrieval. This document was generated by API Evangelist from Leadspace's published technical specifications; Leadspace does not publish a machine-readable OpenAPI definition.\n\nContact Support:\n Name: Leadspace Support\n Email: support@leadspace.com",
+      "type": "text/plain"
+    }
+  }
+}

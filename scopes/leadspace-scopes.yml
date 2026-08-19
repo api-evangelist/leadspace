@@ -1,0 +1,78 @@
+generated: '2026-08-13'
+method: probed
+source: https://skprod.leadspace.com/.well-known/oauth-protected-resource
+sources:
+- https://skprod.leadspace.com/.well-known/oauth-protected-resource
+- https://skprod.leadspace.com/.well-known/oauth-authorization-server
+- https://stg-sk.us.auth0.com/.well-known/openid-configuration
+description: >-
+  Leadspace now has exactly one OAuth scope surface, and it belongs to the MCP
+  server — not to the v4 REST gateway. The scopes below are read verbatim from
+  Leadspace's own RFC 9728 protected-resource metadata. They are pure OIDC
+  identity scopes: there is no Leadspace-specific authorization scope (nothing
+  like `read:contacts` or `reveal:email`), so an MCP client's token carries
+  identity only and every entitlement decision — plan tier, credit balance,
+  which reveals are permitted — is made server-side against the account.
+scope_count: 4
+schemes:
+- name: mcp-oauth
+  applies_to: https://skprod.leadspace.com/mcp/v1
+  type: oauth2
+  protocol: OAuth 2.1
+  flows:
+  - flow: authorizationCode
+    pkce: S256
+    authorizationUrl: https://stg-sk.us.auth0.com/authorize
+    tokenUrl: https://stg-sk.us.auth0.com/oauth/token
+    registrationUrl: https://stg-sk.us.auth0.com/oidc/register
+    dynamic_client_registration: true
+    grant_types:
+    - authorization_code
+    - refresh_token
+    token_endpoint_auth_methods:
+    - none
+    - client_secret_post
+  bearer_methods_supported:
+  - header
+  jwks_uri: https://stg-sk.us.auth0.com/.well-known/jwks.json
+  source: https://skprod.leadspace.com/.well-known/oauth-protected-resource
+scopes:
+- scope: openid
+  description: OIDC — issue an ID token identifying the Leadspace user.
+  flows:
+  - authorizationCode
+  standard: true
+- scope: profile
+  description: OIDC — basic profile claims for the signed-in Leadspace user.
+  flows:
+  - authorizationCode
+  standard: true
+- scope: email
+  description: OIDC — email claim for the signed-in Leadspace user.
+  flows:
+  - authorizationCode
+  standard: true
+- scope: offline_access
+  description: Issue a refresh token so the MCP client can keep the connector authorized between sessions.
+  flows:
+  - authorizationCode
+  standard: true
+v4_gateway:
+  scopes: []
+  note: >-
+    The enterprise v4 API (apigw.leadspace.com) uses an OAuth 2.0 resource-owner
+    password-credentials exchange with an `audience` of API_GATEWAY and issues a
+    24-hour bearer token. It documents no scopes at all — entitlement is bound to
+    the Program ID. See authentication/leadspace-authentication.yml.
+observations:
+- No provider-defined authorization scopes exist. An agent holding a Leadspace MCP token cannot be constrained to read-only or to lookups-without-reveals by scope; the only spend control is the plan's credit allowance.
+- The production MCP resource advertises its authorization server as the Auth0 tenant `stg-sk.us.auth0.com`, whose subdomain reads as a staging tenant. Recorded as observed, not interpreted.
+x-evidence:
+- url: https://skprod.leadspace.com/.well-known/oauth-protected-resource
+  http_status: 200
+  content_type: application/json
+  fetched: '2026-08-13'
+- url: https://skprod.leadspace.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json
+  fetched: '2026-08-13'

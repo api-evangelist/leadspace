@@ -1,0 +1,1 @@
+{"resource":"https://skprod.leadspace.com/mcp/v1","authorization_servers":["https://stg-sk.us.auth0.com/"],"scopes_supported":["openid","profile","email","offline_access"],"bearer_methods_supported":["header"]}

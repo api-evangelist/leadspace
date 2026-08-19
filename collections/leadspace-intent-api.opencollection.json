@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leadspace Discovery Authorization Intent API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Intent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit companies for intent scoring",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw.leadspace.com/v1/intent/score/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a bulk of companies for intent refresh. Company name is required. Returns a polling URI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

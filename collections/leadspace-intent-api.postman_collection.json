@@ -1,0 +1,357 @@
+{
+  "item": [
+    {
+      "id": "8484607b-e94b-4670-a37f-ad410ca19020",
+      "name": "Intent",
+      "description": {
+        "content": "Buyer-intent scoring and refresh",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b867fddc-da68-4a64-8ffb-0fa0957688b8",
+          "name": "Submit companies for intent scoring",
+          "request": {
+            "name": "Submit companies for intent scoring",
+            "description": {
+              "content": "Submits a bulk of companies for intent refresh. Company name is required. Returns a polling URI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "intent",
+                "score",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"company\": {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"address\": {\n          \"country\": \"<string>\",\n          \"state\": \"<string>\",\n          \"city\": \"<string>\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"company\": {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"address\": {\n          \"country\": \"<string>\",\n          \"state\": \"<string>\",\n          \"city\": \"<string>\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4de7515c-38a4-4151-965a-1c3fd87ee608",
+              "name": "The bulk job has successfully been accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    "score",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"/v1/intent/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11b93b5d-7ee2-4bef-9a80-0653988e9d2b",
+              "name": "The request failed due to insufficient basic input, or the JSON format is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    "score",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a06f153b-6b55-4416-9968-41824f39146c",
+              "name": "Unauthorized request (wrong credentials or credentials have expired)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    "score",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1170b439-ab56-42b5-85e2-f3f7f6d9f26b",
+              "name": "Insufficient credits or program ID is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    "score",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "code": 427,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ccc2723-e583-4121-95c0-f5554832316f",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    "score",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"company\": {\n        \"name\": \"string\",\n        \"website\": \"string\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"country\": \"string\",\n          \"state\": \"string\",\n          \"city\": \"string\"\n        }\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apigw.leadspace.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b135c60e-21de-476c-8406-0a97143975aa",
+    "name": "Leadspace Discovery Authorization Intent API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leadspace Discovery (Expansion) API finds net-new contacts inside target accounts. A bulk request expands up to 500 accounts, ranking discovered people against persona, region, and required-contact-information criteria, and returns a polling URI for asynchronous retrieval. This document was generated by API Evangelist from Leadspace's published technical specifications; Leadspace does not publish a machine-readable OpenAPI definition.\n\nContact Support:\n Name: Leadspace Support\n Email: support@leadspace.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -51,11 +51,38 @@ families:
       console surface that fronts the same data graph as the API.
     embeddable: false
   - name: Leadspace Sidekick
-    kind: hosted-application
+    kind: browser-extension
+    url: https://www.leadspace.com/solutions/sidekick
+    store: https://chromewebstore.google.com/detail/leadspace-sidekick/mpckhfjjjghgkakcpfegdhkhomcondll
     docs: https://support.leadspace.com/hc/en-us/categories/27780316704540-Leadspace-Sidekick
+    version: 1.0.658
+    published: '2026-08-09'
     description: >-
-      Seller-facing Leadspace application, available in Solo and Enterprise
-      editions.
+      Chrome extension that overlays Leadspace data on LinkedIn or any web page:
+      verified emails and direct dials, firmographics and org hierarchy, tech
+      stack across 100+ categories, Target Audience fit scoring, buying-committee
+      mapping, AI outreach drafting, job-change detection, and LookaLikes contact
+      expansion, with one-click push to Salesforce, HubSpot and Microsoft
+      Dynamics. Free tier starts at 25 credits/day with no credit card.
+    embeddable: false
+    plans: plans/leadspace-plans-pricing.yml
+    packaging: packages/leadspace-packages.yml
+    note: >-
+      UPGRADE 2026-08-13 — reclassified from hosted-application to
+      browser-extension and given real store metadata. Sidekick shares an account
+      with the Leadspace MCP server; a Sidekick login authenticates the MCP
+      connector.
+  - name: Leadspace MCP
+    kind: agent-connector
+    url: https://www.leadspace.com/solutions/leadspace-mcp
+    endpoint: https://skprod.leadspace.com/mcp/v1
+    docs: https://support.leadspace.com/hc/en-us/articles/29196640181020-Leadspace-MCP-User-Guide
+    description: >-
+      Client-side surface in the sense that the "component" is the AI assistant:
+      Leadspace is added as a custom connector in Claude (web, desktop, Code) or
+      ChatGPT (Developer Mode, Codex) and its tools appear inside the chat. No
+      code is embedded in the customer's own pages. Full detail in
+      mcp/leadspace-mcp.yml.
     embeddable: false
 not_found:
   - web components / custom elements

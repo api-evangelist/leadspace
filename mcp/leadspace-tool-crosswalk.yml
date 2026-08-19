@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/leadspace-mcp.yml + openapi/
+description: >-
+  Binds the Leadspace MCP surface to the v4 REST gateway OpenAPI. Leadspace now
+  runs two genuinely different API products against one data core: the v4 API
+  gateway (apigw.leadspace.com, per-program bearer/OAuth password credentials,
+  bulk-and-callback batch shape, sold to enterprise integration teams) and the
+  Leadspace MCP server (skprod.leadspace.com/mcp/v1, per-USER OAuth via Auth0,
+  single-record conversational shape, free tier). They are overlapping but
+  non-identical projections, and this file records the divergence rather than
+  pretending one wraps the other.
+surfaces:
+  openapi:
+    files:
+    - openapi/leadspace-authorization-api-openapi.yml
+    - openapi/leadspace-enrichment-api-openapi.yml
+    - openapi/leadspace-discovery-api-openapi.yml
+    - openapi/leadspace-intent-api-openapi.yml
+    - openapi/leadspace-results-api-openapi.yml
+    host: https://apigw.leadspace.com
+    gated: false
+    note: Public technical specifications; the API itself requires a Leadspace-issued Program ID.
+  mcp:
+    url: https://skprod.leadspace.com/mcp/v1
+    gated: true
+    note: >-
+      tools/list returns 401 with an RFC 9728 Bearer challenge. Tool names and
+      inputSchemas require an authenticated Leadspace account, so every row
+      below is mapped by published CAPABILITY and named tool where one exists —
+      confidence is set accordingly and nothing is invented.
+  graphql:
+    present: false
+crosswalk:
+- tool: enrich_account
+  category: enrichment
+  status: published-tool-name
+  rest:
+  - enrichSingleRecord
+  binding: rest
+  confidence: medium
+  note: >-
+    The only MCP tool name Leadspace publishes. Semantically the account half of
+    the single-record enrichment operation. The REST operation enriches person
+    AND company in one call and requires a Program ID; the MCP tool is scoped to
+    a company and is free of credit cost, so the input contract is NOT identical
+    to the REST requestBody.
+- tool: unknown (capability - company & contact lookup)
+  category: enrichment
+  rest:
+  - enrichSingleRecord
+  binding: rest
+  confidence: low
+  note: Mapped by capability text ("Industry, size, revenue, location, and full corporate hierarchy for any company"), not by an observed tool name.
+- tool: unknown (capability - reveal business email)
+  category: contact-reveal
+  rest:
+  - discoverCompanyContacts
+  - getDiscoveryResults
+  binding: rest
+  confidence: low
+  note: >-
+    Closest REST analogue. The REST path is an asynchronous bulk expansion job
+    (submit up to 500 accounts, poll for results); the MCP capability is a
+    synchronous per-person reveal costing 1 credit. Different execution model,
+    same underlying contact graph.
+- tool: unknown (capability - reveal phone, direct + mobile)
+  category: contact-reveal
+  rest:
+  - discoverCompanyContacts
+  - getDiscoveryResults
+  binding: rest
+  confidence: low
+  note: 3 credits. Same async-vs-sync divergence as email reveal.
+- tool: unknown (capability - buying intent signals)
+  category: intent
+  rest:
+  - scoreCompanyIntent
+  - getIntentResults
+  binding: rest
+  confidence: low
+  note: 1 credit per company. REST intent is a weekly batch refresh; MCP is an on-demand per-company question.
+mcp_only:
+- tool: unknown (capability - buying group / buying committee intelligence)
+  reason: >-
+    Buying-group and Target-Audience fit scoring are Studio/Sidekick platform
+    features exposed to the assistant. No public v4 REST operation exposes a
+    buying-committee map or a fit score.
+- tool: unknown (capability - AI outreach drafting)
+  reason: Server-side LLM composition over Leadspace data; no REST equivalent exists.
+rest_only:
+- operations:
+  - createAuthorizationToken
+  - refreshAuthorizationToken
+  reason: >-
+    v4 gateway credential exchange (OAuth 2.0 resource-owner password
+    credentials against apigw.leadspace.com). The MCP server uses a completely
+    different auth stack — Auth0 authorization-code + PKCE with dynamic client
+    registration — so these operations have no MCP counterpart by design.
+- operations:
+  - enrichBulkRecords
+  - getBulkEnrichmentResults
+  - bulkCompleteCallback
+  reason: Asynchronous bulk enrichment (up to 500 records per POST) with an optional callbackUrl. No batch or webhook surface is exposed over MCP.
+- operations:
+  - discoveryCompleteCallback
+  reason: Outbound job-completion webhook. MCP has no callback concept.
+coverage:
+  mcp_tools_named: 1
+  mcp_capabilities_published: 5
+  mcp_rows_bound_to_rest: 5
+  mcp_only: 2
+  rest_operations_total: 11
+  rest_operations_with_a_tool: 5
+  rest_only: 6
+  confidence_high: 0
+  confidence_medium: 1
+  confidence_low: 4
+gaps:
+- Leadspace publishes no tools/list manifest, no llms.txt and no MCP tool reference page, so the agent-facing contract is discoverable only after OAuth. A public tool manifest would let a buyer evaluate the surface before signing up.
+- Because the REST and MCP surfaces authenticate against different identity systems (Program ID vs Auth0 user), a customer cannot reuse one credential across both.

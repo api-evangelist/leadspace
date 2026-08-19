@@ -1,10 +1,21 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: generated
 source: >-
   Generated from openapi/ (which was itself generated from Leadspace's published
-  technical specifications) plus conventions/, errors/, and rate-limits/.
-  Leadspace publishes no AGENTS.md or first-party agent skills.
+  technical specifications) plus conventions/, errors/, rate-limits/, and — new
+  on 2026-08-13 — mcp/leadspace-mcp.yml and Leadspace's own published MCP setup
+  instructions. Leadspace publishes no AGENTS.md or first-party agent skills.
 skills:
+  - file: leadspace-connect-mcp.md
+    name: Connect an agent to the Leadspace MCP server
+    description: >-
+      Add Leadspace as a remote MCP connector in Claude, ChatGPT, Claude Code or
+      any MCP-compatible client, authenticate with OAuth, and work the enrich →
+      find → reveal → intent flow without burning credits by accident.
+    api: mcp/leadspace-mcp.yml
+    endpoint: https://skprod.leadspace.com/mcp/v1
+    operations:
+      - enrich_account
   - file: leadspace-enrich-record.md
     name: Enrich a person or company record with Leadspace
     description: >-

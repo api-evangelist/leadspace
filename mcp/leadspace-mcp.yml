@@ -1,88 +1,204 @@
-generated: '2026-07-19'
-method: derived
-status: candidate
-source: openapi/leadspace-enrichment-openapi.yml, openapi/leadspace-discovery-openapi.yml, openapi/leadspace-intent-openapi.yml
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://www.leadspace.com/solutions/leadspace-mcp/claude
+sources:
+- https://www.leadspace.com/solutions/leadspace-mcp
+- https://www.leadspace.com/solutions/leadspace-mcp/claude
+- https://www.leadspace.com/solutions/leadspace-mcp/chatgpt
+- https://skprod.leadspace.com/.well-known/oauth-protected-resource
+- https://support.leadspace.com/hc/en-us/articles/29196640181020-Leadspace-MCP-User-Guide
 search_result: >-
-  No official or third-party Leadspace MCP server was found in the provider's
-  docs, on the leadspace GitHub organization (3 public repos, all forks of
-  unrelated Java/Node libraries), on npm, or in the MCP registry as of
-  2026-07-19. The tool list below is a candidate derived from the documented
-  operations, not a published server.
+  UPGRADE 2026-08-13. The 2026-07-19 pass correctly recorded that no MCP server
+  existed. Leadspace has since shipped one: "Leadspace MCP", a hosted remote MCP
+  server marketed as a custom connector for Claude (web, desktop, Code), ChatGPT
+  (Developer Mode connectors, Codex) and "any MCP-compatible AI". The endpoint
+  below is published verbatim in Leadspace's own setup instructions AND was
+  independently confirmed by probe: it answers an RFC 9728 challenge
+  (WWW-Authenticate: Bearer realm="leadspace-builders", resource_metadata=...)
+  and serves OAuth protected-resource metadata naming itself as the resource.
+  It is NOT a guessed path.
+deployment:
+  mode: remote
+  endpoint: https://skprod.leadspace.com/mcp/v1
+  install: null
+  package: null
+  auth: oauth
+  verified: probed
+  checked: '2026-08-13'
+  note: >-
+    Remote only. Leadspace ships no npx/stdio package and no local server; the
+    same https endpoint is used by every client, including Claude Code
+    (`claude mcp add --transport http leadspace https://skprod.leadspace.com/mcp/v1`)
+    and OpenAI Codex.
 server:
   name: leadspace
+  display_name: Leadspace MCP
   transport: http
-  url: null
+  url: https://skprod.leadspace.com/mcp/v1
+  host: skprod.leadspace.com
+  realm: leadspace-builders
+  product: Leadspace GTM Data Intelligence Cloud (shares accounts with Leadspace Sidekick)
   auth:
-    type: bearer
-    env: LEADSPACE_API_KEY
+    type: oauth
+    protocol: OAuth 2.1 authorization code + PKCE (S256)
+    authorization_server: https://stg-sk.us.auth0.com/
+    authorization_endpoint: https://stg-sk.us.auth0.com/authorize
+    token_endpoint: https://stg-sk.us.auth0.com/oauth/token
+    registration_endpoint: https://stg-sk.us.auth0.com/oidc/register
+    dynamic_client_registration: true
+    scopes_supported:
+    - openid
+    - profile
+    - email
+    - offline_access
+    bearer_methods_supported:
+    - header
+    protected_resource_metadata: https://skprod.leadspace.com/.well-known/oauth-protected-resource
+    detail: scopes/leadspace-scopes.yml
     note: >-
-      Bearer token issued per program. Where OAuth 2.0 is used, exchange
-      LEADSPACE_PROGRAM_ID + LEADSPACE_SECRET at
-      https://apigw.leadspace.com/oauth/authorize with audience API_GATEWAY;
-      tokens expire every 24 hours.
+      Setup instructions say to leave the OAuth client fields blank — the client
+      is registered dynamically (RFC 7591) against the Auth0 tenant. Observation,
+      not a judgement: the authorization server advertised by the PRODUCTION
+      resource is the Auth0 tenant `stg-sk.us.auth0.com`, whose subdomain reads
+      as a staging tenant.
+client_setup:
+  claude:
+    docs: https://www.leadspace.com/solutions/leadspace-mcp/claude
+    steps_verbatim:
+    - Create a free Leadspace account with your work email. (Note: Sidekick users can log into MCP with their existing account.)
+    - In Claude, open Settings → Connectors and choose Add custom connector.
+    - Paste https://skprod.leadspace.com/mcp/v1, leave the OAuth fields blank, and click Connect.
+    - Sign in with your Leadspace account, Leadspace tools now appear in Claude.
+    claude_code_verbatim: claude mcp add --transport http leadspace https://skprod.leadspace.com/mcp/v1
+  chatgpt:
+    docs: https://www.leadspace.com/solutions/leadspace-mcp/chatgpt
+    steps_verbatim:
+    - Requires a ChatGPT plan that supports custom connectors and Developer Mode (Pro or higher).
+    - In ChatGPT, go to Settings → Connectors and enable Developer Mode under Advanced Settings.
+    - Click Create and enter Name Leadspace, URL https://skprod.leadspace.com/mcp/v1, Authentication OAuth. Leave the client fields blank.
+    - Click Create, then Connect, and sign in with your Leadspace account.
+    - Enable Leadspace from the + / Apps menu in a chat and start asking.
+  other: >-
+    "Prefer a local setup? You can also use Leadspace through OpenAI's Codex
+    agent, or any MCP-compatible client, with the same endpoint and sign-in."
+tools_introspection:
+  attempted: '2026-08-13'
+  method: POST tools/list to https://skprod.leadspace.com/mcp/v1
+  result: 401
+  gated: true
+  challenge: 'WWW-Authenticate: Bearer realm="leadspace-builders", resource_metadata="https://skprod.leadspace.com/mcp/v1/.well-known/oauth-protected-resource"'
+  note: >-
+    The live tool list and per-tool inputSchema require an authenticated
+    Leadspace account. Leadspace publishes no tools/list manifest and no
+    llms.txt, so only ONE tool name is published anywhere: `enrich_account`
+    (named in the developer example on both the Claude and ChatGPT pages).
+    Everything else below is recorded as a published CAPABILITY, not as a tool
+    name. Tool names are NOT invented here — authenticated introspection is
+    required to complete this list.
 tools:
+- name: enrich_account
+  status: published
+  description: >-
+    Named verbatim in Leadspace's own developer example — "Wire enrich_account
+    and intent signals into our nightly scoring agent via MCP."
+  source: https://www.leadspace.com/solutions/leadspace-mcp/claude
+  action_class: acting
+  consequence: write
+  cost: free (company & contact lookup is not credit-metered)
+  rest_analogue: openapi/leadspace-enrichment-api-openapi.yml#enrichSingleRecord
+capabilities_published:
+- capability: Account intelligence
+  description: Industry, size, revenue, location, and full corporate hierarchy for any company.
+  credit_cost: free
+  tool_name: unknown (not published)
+- capability: Company & contact lookup
+  description: Browse company and contact intelligence without spending credits.
+  credit_cost: free
+  tool_name: unknown (not published)
+- capability: Reveal business email
+  description: Reveal a person's verified business email on demand.
+  credit_cost: 1 credit
+  tool_name: unknown (not published)
+- capability: Reveal phone (direct + mobile)
+  description: Reveal a person's direct-dial and mobile number on demand.
+  credit_cost: 3 credits
+  tool_name: unknown (not published)
+- capability: Buying intent signals
+  description: See which companies are actively researching your category, with topic-level signals.
+  credit_cost: 1 credit per company
+  tool_name: unknown (not published)
+commercial:
+  free_to_start: true
+  statement_verbatim: >-
+    "Free to start. Included on every plan. Looking things up is free. You only
+    spend credits to reveal a specific contact detail or pull buying intent, and
+    re-revealing something you've already unlocked is always free."
+  plans: plans/leadspace-plans-pricing.yml
+guardrails:
+- The MCP surface is credit-metered per reveal. Lookups are free; email reveal 1 credit, phone reveal 3 credits, buying intent 1 credit per company. Re-revealing previously unlocked data is free.
+- Free Starter accounts are capped at 25 credits/day, so an agent loop that reveals contact details will exhaust a free account inside one working session.
+- Tool input schemas are auth-gated. Do not assume argument shapes from the REST OpenAPI — the MCP surface and the v4 gateway API are different projections (see mcp/leadspace-tool-crosswalk.yml).
+- Responses carry personal data about identified individuals (business email, direct dial, mobile). Handle under the customer's DPA and the Leadspace Texas Data Broker Notice / Do Not Sell process.
+rest_candidate_tools:
+  note: >-
+    Retained from the 2026-07-19 derived pass. These are NOT tools the published
+    MCP server exposes — they are candidate bindings derived from the v4 REST
+    OpenAPI, kept for the crosswalk. Confirmed tool names require authenticated
+    introspection.
+  method: derived
+  source: openapi/
+  tools:
   - name: enrich_record
-    description: >-
-      Enrich a single person and/or company record against the Leadspace
-      Universal Graph. Requires company name for account enrichment, or first
-      name + last name + one of company/email/website for person enrichment.
-    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichSingleRecord
+    description: Enrich a single person and/or company record against the Leadspace Universal Graph.
+    source_operation: openapi/leadspace-enrichment-api-openapi.yml#enrichSingleRecord
     action_class: acting
     consequence: write
-    note: Consumes enrichment credits.
   - name: enrich_records_bulk
-    description: >-
-      Submit up to 500 records for asynchronous enrichment. Returns a polling
-      URI; optionally accepts a callbackUrl.
-    source_operation: openapi/leadspace-enrichment-openapi.yml#enrichBulkRecords
+    description: Submit up to 500 records for asynchronous enrichment. Returns a polling URI; optionally accepts a callbackUrl.
+    source_operation: openapi/leadspace-enrichment-api-openapi.yml#enrichBulkRecords
     action_class: acting
     consequence: write
   - name: get_bulk_enrichment_results
     description: Poll for the results of a bulk enrichment job. 204 means still processing.
-    source_operation: openapi/leadspace-enrichment-openapi.yml#getBulkEnrichmentResults
+    source_operation: openapi/leadspace-enrichment-api-openapi.yml#getBulkEnrichmentResults
     action_class: connected
     consequence: read
   - name: discover_company_contacts
-    description: >-
-      Expand up to 500 accounts into ranked net-new contacts, filtered by
-      persona, region, country, and required contact information.
-    source_operation: openapi/leadspace-discovery-openapi.yml#discoverCompanyContacts
+    description: Expand up to 500 accounts into ranked net-new contacts.
+    source_operation: openapi/leadspace-discovery-api-openapi.yml#discoverCompanyContacts
     action_class: acting
     consequence: write
   - name: get_discovery_results
     description: Poll for the results of a bulk discovery (expansion) job.
-    source_operation: openapi/leadspace-discovery-openapi.yml#getDiscoveryResults
+    source_operation: openapi/leadspace-discovery-api-openapi.yml#getDiscoveryResults
     action_class: connected
     consequence: read
   - name: score_company_intent
-    description: >-
-      Submit companies for buyer-intent refresh; returns surging topics and
-      scored intent-modeling projects.
-    source_operation: openapi/leadspace-intent-openapi.yml#scoreCompanyIntent
+    description: Submit companies for buyer-intent refresh.
+    source_operation: openapi/leadspace-intent-api-openapi.yml#scoreCompanyIntent
     action_class: acting
     consequence: write
   - name: get_intent_results
     description: Poll for the results of an intent scoring job.
-    source_operation: openapi/leadspace-intent-openapi.yml#getIntentResults
+    source_operation: openapi/leadspace-intent-api-openapi.yml#getIntentResults
     action_class: connected
     consequence: read
   - name: refresh_access_token
     description: Exchange a refreshToken for a new 24-hour bearer token.
-    source_operation: openapi/leadspace-enrichment-openapi.yml#refreshAuthorizationToken
+    source_operation: openapi/leadspace-authorization-api-openapi.yml#refreshAuthorizationToken
     action_class: acting
     consequence: write
-guardrails:
-  - >-
-    Every enrichment, discovery, and intent call is metered against a credit
-    balance; exhaustion returns HTTP 427. Agents should budget calls and treat
-    427 as terminal, not retriable.
-  - >-
-    Single API is capped at 30 transactions per second per the customer's tiered
-    SLA; back off on 429.
-  - >-
-    There is no idempotency key. Retrying a submission re-consumes credits.
-    Prefer polling an existing bulk over resubmitting it.
-  - >-
-    Responses carry personal data about identified individuals. Handle under the
-    customer's DPA; Leadspace states it does not process special categories of
-    data.
+x-evidence:
+- url: https://skprod.leadspace.com/mcp/v1
+  method: POST tools/list
+  http_status: 401
+  www_authenticate: Bearer realm="leadspace-builders", resource_metadata="https://skprod.leadspace.com/mcp/v1/.well-known/oauth-protected-resource"
+  fetched: '2026-08-13'
+- url: https://skprod.leadspace.com/.well-known/oauth-protected-resource
+  http_status: 200
+  content_type: application/json
+  fetched: '2026-08-13'
+- url: https://www.leadspace.com/solutions/leadspace-mcp/claude
+  http_status: 200
+  fetched: '2026-08-13'

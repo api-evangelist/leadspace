@@ -1,7 +1,65 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
 source: https://support.leadspace.com/hc/en-us/articles/360012276859-General-Statement-of-Information-Security-and-Privacy
+update_note: >-
+  UPGRADE 2026-08-13. The launch of the Leadspace MCP server added a genuine
+  standards surface that did not exist in the 2026-07-19 pass: Model Context
+  Protocol, OAuth 2.1 authorization-code + PKCE, RFC 9728 protected-resource
+  metadata, RFC 8414 authorization-server metadata and RFC 7591 dynamic client
+  registration — all verified by live probe. Entries below are scoped to the
+  surface they apply to, because the v4 REST gateway and the MCP server conform
+  to different things.
 standards:
+  - id: model-context-protocol
+    conforms: true
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: >-
+      Published remote MCP server; documented as a custom connector for Claude
+      (web/desktop/Code) and ChatGPT (Developer Mode connectors, Codex) and "any
+      MCP-compatible client". POST tools/list returns a spec-shaped 401 with an
+      RFC 9728 Bearer challenge rather than a generic error.
+    docs: https://www.leadspace.com/solutions/leadspace-mcp
+  - id: rfc9728-oauth-protected-resource-metadata
+    conforms: true
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: >-
+      /.well-known/oauth-protected-resource returns 200 application/json naming
+      resource https://skprod.leadspace.com/mcp/v1, its authorization server,
+      supported scopes and bearer methods; the WWW-Authenticate challenge cites
+      the same metadata URL.
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: true
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: /.well-known/oauth-authorization-server returns 200 with issuer, authorization, token, registration and jwks endpoints.
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: >-
+      registration_endpoint https://stg-sk.us.auth0.com/oidc/register is
+      advertised, and the provider's own setup instructions tell the user to
+      leave the OAuth client fields blank.
+  - id: oauth2-pkce-rfc7636
+    conforms: true
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: code_challenge_methods_supported ["S256"].
+  - id: oauth21-authorization-code
+    conforms: true
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: authorization_code + refresh_token grants, PKCE S256, public client (token_endpoint_auth_method "none") — the OAuth 2.1 MCP profile.
+  - id: oidc
+    conforms: partial
+    applies_to: https://skprod.leadspace.com/mcp/v1
+    evidence: >-
+      The MCP authorization server is an Auth0 OIDC tenant advertising openid /
+      profile / email scopes and a full openid-configuration. Leadspace itself
+      publishes no OIDC discovery document on its own hosts, so this conformance
+      belongs to the delegated identity provider, not to a Leadspace endpoint.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json 404 on
+      www.leadspace.com and apigw.leadspace.com, and return the SPA HTML
+      catch-all (soft 404) on studio.leadspace.com and skprod.leadspace.com.
   - id: oauth2
     conforms: true
     evidence: >-
@@ -10,9 +68,10 @@ standards:
       https://apigw.leadspace.com/oauth/authorize with token + refreshToken +
       expiration, documented in the API v4 OAuth 2.0 Diagram.
     docs: https://support.leadspace.com/hc/en-us/articles/360000827409-API-v4-OAuth-2-0-Diagram
-  - id: oidc
+  - id: oidc-v4-gateway
     conforms: false
-    evidence: No OpenID Connect discovery document or ID token surface.
+    applies_to: https://apigw.leadspace.com
+    evidence: No OpenID Connect discovery document or ID token surface on the v4 REST gateway.
   - id: rfc6750-bearer-token
     conforms: true
     evidence: "Authorization: Bearer API_KEY header on every API request."
@@ -60,7 +119,9 @@ standards:
     evidence: Company records carry a 4-digit sic identifier and sicDescription.
 compliance:
   published: true
-  url: https://support.leadspace.com/hc/en-us/articles/360012276859-General-Statement-of-Information-Security-and-Privacy
+  url: https://www.leadspace.com/platform/security-and-compliance
+  statement_url: https://support.leadspace.com/hc/en-us/articles/360012276859-General-Statement-of-Information-Security-and-Privacy
+  trust_center: security/leadspace-trust-center.yml
   last_reviewed: '2025-11'
   certifications:
     - name: ISO 27001

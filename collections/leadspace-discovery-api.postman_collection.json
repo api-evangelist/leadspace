@@ -1,0 +1,400 @@
+{
+  "item": [
+    {
+      "id": "e73557ac-a787-4f39-b2ab-ee40530c72be",
+      "name": "Discovery",
+      "description": {
+        "content": "Bulk account expansion into net-new contacts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9d35af7-1c35-43aa-adf4-f1583c81e123",
+          "name": "Submit a bulk account discovery (expansion) job",
+          "request": {
+            "name": "Submit a bulk account discovery (expansion) job",
+            "description": {
+              "content": "Expands up to 500 accounts into ranked contacts. Either companyName or companyWebsite is mandatory for each account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "expansion",
+                "company"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"<string>\",\n        \"companyWebsite\": \"<string>\",\n        \"companylinkedinUrl\": \"<string>\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"contactRegions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"contactCountries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"contactState\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": \"<boolean>\",\n        \"companyPhone\": \"<boolean>\",\n        \"verifiedEmail\": \"<boolean>\"\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"<string>\"\n      },\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"<string>\",\n        \"companyWebsite\": \"<string>\",\n        \"companylinkedinUrl\": \"<string>\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"contactRegions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"contactCountries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"contactState\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": \"<boolean>\",\n        \"companyPhone\": \"<boolean>\",\n        \"verifiedEmail\": \"<boolean>\"\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"<string>\"\n      },\n      \"external_id\": \"<string>\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32115442-d8de-43cb-bb81-c0d1d89046ba",
+              "name": "Bulk job successfully accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "expansion",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": false,\n        \"verifiedEmail\": true\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": true,\n        \"verifiedEmail\": false\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"/v1/expansion/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2ec0821-0fb3-466b-b70c-974d14cfe93f",
+              "name": "Request fails basic input validation or JSON format is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "expansion",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": false,\n        \"verifiedEmail\": true\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": true,\n        \"verifiedEmail\": false\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91f0ed65-ea8e-449a-93a9-ce1071a78c90",
+              "name": "Unauthorized request (wrong credentials or credentials have expired)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "expansion",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": false,\n        \"verifiedEmail\": true\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": true,\n        \"verifiedEmail\": false\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f292238-cdbd-400f-8791-0ba90ae6eb03",
+              "name": "Program ID is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "expansion",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": false,\n        \"verifiedEmail\": true\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": true,\n        \"verifiedEmail\": false\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc781fc0-fbe4-4647-a869-80c7e66409aa",
+              "name": "Insufficient credits to process this request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "expansion",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": false,\n        \"verifiedEmail\": true\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": true,\n        \"verifiedEmail\": false\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "code": 427,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7dee5ed-b614-4b20-96a2-6cdabe4de8c5",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "expansion",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": false,\n        \"verifiedEmail\": true\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    },\n    {\n      \"account\": {\n        \"companyName\": \"string\",\n        \"companyWebsite\": \"string\",\n        \"companylinkedinUrl\": \"string\"\n      },\n      \"contact\": {\n        \"persona\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactRegions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactCountries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contactState\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"requiredResultsFields\": {\n        \"directPhone\": true,\n        \"companyPhone\": true,\n        \"verifiedEmail\": false\n      },\n      \"limits\": {\n        \"resultPerAccount\": 10\n      },\n      \"location\": {\n        \"country\": \"string\"\n      },\n      \"external_id\": \"string\"\n    }\n  ],\n  \"external_bulk_id\": \"<string>\",\n  \"callbackUrl\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://apigw.leadspace.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c8fed312-c7d0-43d7-811b-6b5523f900dc",
+    "name": "Leadspace Authorization Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Leadspace Discovery (Expansion) API finds net-new contacts inside target accounts. A bulk request expands up to 500 accounts, ranking discovered people against persona, region, and required-contact-information criteria, and returns a polling URI for asynchronous retrieval. This document was generated by API Evangelist from Leadspace's published technical specifications; Leadspace does not publish a machine-readable OpenAPI definition.\n\nContact Support:\n Name: Leadspace Support\n Email: support@leadspace.com",
+      "type": "text/plain"
+    }
+  }
+}

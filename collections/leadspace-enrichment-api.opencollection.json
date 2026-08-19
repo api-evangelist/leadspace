@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leadspace Discovery Authorization Enrichment API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enrichment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enrich a single person and/or company record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw.leadspace.com/enrichment/enrich/single",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Synchronously enriches one record. Account enrichment requires a company name. Person enrichment requires first name, last name, and one of company name, email address, or website."
+        },
+        {
+          "info": {
+            "name": "Submit a bulk enrichment job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw.leadspace.com/enrichment/enrich/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accepts up to 500 records per request and returns a polling URI. An optional callbackUrl receives a notification when processing completes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

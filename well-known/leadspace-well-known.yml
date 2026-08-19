@@ -1,59 +1,130 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
-source: live probe of /.well-known/ paths on every Leadspace host in apis.yml + openapi servers[]
-result: none
+source: live probe of /.well-known/ paths on every Leadspace host in apis.yml + openapi servers[] + the new MCP host
+result: partial
 summary: >-
-  Leadspace publishes no /.well-known/ discovery surface. Every path returns 404
-  on the marketing host and the API gateway. The Studio SPA answers 200 to any
-  path with its index.html catch-all, which is a soft 404 and not a real
-  document — no file was saved.
+  UPGRADE 2026-08-13 — the 2026-07-19 pass recorded result: none, which was
+  correct at the time. Leadspace now serves TWO real, machine-readable
+  /.well-known/ documents, both on the MCP host skprod.leadspace.com: RFC 9728
+  OAuth Protected Resource Metadata (which names https://skprod.leadspace.com/mcp/v1
+  as the resource) and RFC 8414 OAuth Authorization Server Metadata (delegating
+  to an Auth0 tenant). Both are saved verbatim below. Everything else is still a
+  miss: the marketing host and the API gateway 404 on every path, and the Studio
+  and Sidekick SPAs answer 200 with an HTML index.html catch-all for any path,
+  which is a soft 404 and is NOT counted as a document.
 hosts:
-  - host: https://www.leadspace.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 404
-      - path: /.well-known/openid-configuration
-        status: 404
-      - path: /.well-known/oauth-authorization-server
-        status: 404
-      - path: /.well-known/api-catalog
-        status: 404
-      - path: /.well-known/ai-plugin.json
-        status: 404
-  - host: https://apigw.leadspace.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 404
-      - path: /.well-known/openid-configuration
-        status: 404
-      - path: /.well-known/oauth-authorization-server
-        status: 404
-      - path: /.well-known/api-catalog
-        status: 404
-      - path: /.well-known/ai-plugin.json
-        status: 404
-  - host: https://studio.leadspace.com
-    note: >-
-      Angular SPA; all paths return 200 with text/html index.html. Treated as
-      soft 404 — no discovery documents exist.
-    documents:
-      - path: /.well-known/security.txt
-        status: 200
-        content_type: text/html
-        valid: false
-      - path: /.well-known/openid-configuration
-        status: 200
-        content_type: text/html
-        valid: false
-      - path: /.well-known/oauth-authorization-server
-        status: 200
-        content_type: text/html
-        valid: false
-      - path: /.well-known/api-catalog
-        status: 200
-        content_type: text/html
-        valid: false
-      - path: /.well-known/ai-plugin.json
-        status: 200
-        content_type: text/html
-        valid: false
+- host: https://skprod.leadspace.com
+  role: MCP server host (Leadspace MCP / Sidekick)
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    valid: true
+    spec: RFC 9728
+    file: leadspace-oauth-protected-resource.json
+  - path: /mcp/v1/.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    valid: true
+    spec: RFC 9728
+    note: Identical body to the host-root document; this is the path named in the WWW-Authenticate challenge.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    valid: true
+    spec: RFC 8414
+    file: leadspace-oauth-authorization-server.json
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    valid: false
+    note: SPA catch-all, soft 404.
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    valid: false
+    note: SPA catch-all, soft 404.
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html
+    valid: false
+    note: SPA catch-all, soft 404.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    content_type: text/html
+    valid: false
+    note: SPA catch-all, soft 404.
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    valid: false
+    note: SPA catch-all, soft 404. NOT an agent card — no a2a/ artifact written.
+- host: https://www.leadspace.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://apigw.leadspace.com
+  role: v4 REST API gateway
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://studio.leadspace.com
+  note: >-
+    Angular SPA; all paths return 200 with text/html index.html. Treated as soft
+    404 — no discovery documents exist.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    valid: false
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    valid: false
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html
+    valid: false
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html
+    valid: false
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    content_type: text/html
+    valid: false
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    valid: false
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    valid: false
+gaps:
+- No RFC 9116 security.txt on any host, even though Leadspace publishes a full vulnerability-disclosure policy at https://www.leadspace.com/report-a-vulnerability. Serving that page's contact and policy as /.well-known/security.txt would be a one-file fix.
+- No /.well-known/api-catalog, so the v4 gateway APIs are not machine-discoverable from the API host.

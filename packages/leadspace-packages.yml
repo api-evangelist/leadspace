@@ -1,0 +1,110 @@
+generated: '2026-08-13'
+method: searched
+source: registry search across npm, PyPI, RubyGems, crates.io, Packagist, NuGet, pkg.go.dev, Maven Central, the leadspace GitHub organization and the Chrome Web Store
+description: >-
+  Leadspace publishes NO first-party client library in any public package
+  registry. Every integration path is either a raw HTTPS call to the v4 gateway,
+  a hosted script tag (SmartForms), a native platform connector (Salesforce,
+  Marketo, Eloqua, HubSpot), the Leadspace MCP server, or the Sidekick browser
+  extension. That is the finding, and it is unchanged from the 2026-07-19 pass
+  except that the Sidekick Chrome extension is now catalogued with real
+  registry metadata.
+sdk_count: 0
+package_count: 1
+packages:
+- name: Leadspace Sidekick
+  kind: browser-extension
+  language: javascript
+  registry: chrome-web-store
+  id: mpckhfjjjghgkakcpfegdhkhomcondll
+  url: https://chromewebstore.google.com/detail/leadspace-sidekick/mpckhfjjjghgkakcpfegdhkhomcondll
+  install: Add to Chrome from the Chrome Web Store
+  official: true
+  official_evidence: >-
+    Chrome Web Store badges the listing "Created by the owner of the listed
+    website — leadspace.com"; developer contact is dev-chrome@leadspace.com.
+  version: 1.0.658
+  published: '2026-08-09'
+  version_source: https://chromewebstore.google.com/detail/leadspace-sidekick/mpckhfjjjghgkakcpfegdhkhomcondll
+  users: 160
+  rating: 5.0 (12 ratings)
+  size: 1.91MiB
+  note: >-
+    An end-user LinkedIn/web overlay, NOT a developer SDK — it is not importable
+    and exposes no programmable interface. Catalogued here because it is the only
+    first-party Leadspace artifact distributed through a public registry.
+    Actively maintained: last published four days before this probe.
+registries_searched:
+- registry: npm
+  query: leadspace
+  result: no first-party package (only unrelated third-party hits)
+  status: 200
+- registry: pypi
+  queries:
+  - leadspace
+  - leadspace-api
+  - leadspace-sdk
+  result: 404 on every candidate
+- registry: rubygems
+  query: leadspace
+  result: empty result set
+  status: 200
+- registry: crates.io
+  query: leadspace
+  result: 0 crates
+  status: 200
+- registry: packagist
+  query: leadspace
+  result: no first-party package (nearest hits are leadspedia/leadsfactory, different companies)
+  status: 200
+- registry: nuget
+  query: leadspace
+  result: 0 hits
+  status: 200
+- registry: maven-central
+  query: leadspace
+  result: no first-party artifact
+- registry: pkg.go.dev
+  query: leadspace
+  result: no first-party module
+- registry: chrome-web-store
+  query: leadspace
+  result: 1 first-party extension (recorded above)
+github:
+  org: https://github.com/leadspace
+  public_repos: 3
+  first_party_code: false
+  note: >-
+    All three public repos are forks of unrelated third-party libraries
+    (scribe-java, node-hubspot, metrics), last pushed 2015-2016. No Leadspace
+    client library, no example code, no MCP server package.
+  repos:
+  - name: scribe-java
+    fork: true
+    last_push: '2015-10-05'
+  - name: node-hubspot
+    fork: true
+    last_push: '2015-12-03'
+  - name: metrics
+    fork: true
+    last_push: '2016-10-01'
+integration_alternatives:
+- kind: mcp-server
+  name: Leadspace MCP
+  url: https://skprod.leadspace.com/mcp/v1
+  detail: mcp/leadspace-mcp.yml
+  note: Remote HTTP endpoint, no installable package. This is the closest thing Leadspace ships to a distributed client.
+- kind: embedded-script
+  name: SmartForms
+  detail: components/leadspace-components.yml
+  note: Per-customer script tag issued by Leadspace; no public CDN URL, so no version can be pinned or read.
+- kind: platform-connector
+  names:
+  - Salesforce
+  - Marketo
+  - Eloqua
+  - HubSpot
+  note: Distributed through each platform's own marketplace, not a package registry.
+gaps:
+- No SDK in any language for the v4 gateway API. An integrator writes raw HTTP against apigw.leadspace.com, including the OAuth token exchange and the bulk polling loop.
+- No `SDKs` pointer is emitted in apis.yml because no client library exists. A browser extension is not an SDK and is not counted as one.

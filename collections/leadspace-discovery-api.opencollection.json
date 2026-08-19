@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Leadspace Authorization Discovery API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a bulk account discovery (expansion) job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw.leadspace.com/v2/expansion/company",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Expands up to 500 accounts into ranked contacts. Either companyName or companyWebsite is mandatory for each account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

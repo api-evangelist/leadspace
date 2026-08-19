@@ -1,0 +1,120 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.leadspace.com/solutions/sidekick/pricing
+sources:
+- https://www.leadspace.com/solutions/sidekick/pricing
+- https://www.leadspace.com/solutions/leadspace-mcp
+- https://www.leadspace.com/solutions/sidekick
+description: >-
+  Leadspace publishes self-serve pricing for the first time as of 2026 — for
+  Sidekick and the Leadspace MCP server, which share one account. The
+  enterprise v4 API gateway (apigw.leadspace.com) is still sold on a contracted
+  program basis with no published price; that is recorded separately below
+  rather than left unstated.
+currency: USD
+billing_periods:
+- monthly
+- annual
+annual_discount: SAVE 20%
+unit: per user
+plan_count: 4
+plans:
+- name: Starter
+  price: 0
+  price_display: Free forever
+  currency: USD
+  period: null
+  unit: per user
+  credit_allowance: 25 credits / day
+  exports: 100 exports / month (CSV & CRM)
+  features:
+  - View LinkedIn + social activity
+  - View tech stack data
+  - View revenue data
+  - Target Audience fit score
+  - Buying group intelligence
+  - AI queries
+  cta: Start for free
+  signup: self-serve, work email, no credit card
+- name: Solo
+  price: 49
+  price_display: $49 / user / mo
+  currency: USD
+  period: month
+  unit: per user
+  billing_note: Billed annually
+  credit_allowance: 1,500 credits / month
+  exports: 1,000 exports / month (CSV & CRM)
+  features:
+  - Everything in Starter
+  - Full access to contact details
+  - Bulk reveal
+  cta: Get started
+- name: Pro
+  price: 89
+  price_display: $89
+  currency: USD
+  period: month
+  unit: per user
+  badge: MOST POPULAR
+  credit_allowance: 3,500 credits / month
+  exports: 2,500 exports / month (CSV & CRM)
+  features:
+  - Everything in Solo
+  cta: Get started
+- name: Enterprise
+  price: null
+  price_display: Custom
+  currency: USD
+  period: null
+  credit_allowance: Custom credit allocation
+  exports: Unlimited exports (CSV & CRM)
+  features:
+  - Everything in Pro
+  - Full credit rollover
+  - Advanced API
+  - Dedicated support
+  cta: Contact sales
+metering:
+  model: credits
+  statement_verbatim: >-
+    "Browse company and contact intelligence for free. Pay only when you reveal
+    an email or phone number."
+  free_actions:
+  - Company & contact lookup
+  - Account intelligence (industry, size, revenue, location, corporate hierarchy)
+  - Re-revealing a contact detail already unlocked
+  costs:
+  - action: Buying intent (per company)
+    credits: 1
+  - action: Reveal business email
+    credits: 1
+  - action: Reveal phone (direct + mobile)
+    credits: 3
+  rollover: Full credit rollover on Enterprise; the pricing page does not state a rollover policy for Starter/Solo/Pro.
+  top_ups: Credit top-up packs are offered on all paid plans ("Credit packs on all paid plans").
+enterprise_api:
+  product: Leadspace v4 API gateway (apigw.leadspace.com)
+  published_price: false
+  plan_count: 0
+  note: >-
+    The enterprise enrichment/discovery/intent API is contracted per program.
+    Rate limits are expressed as a program-type tiered SLA in transactions per
+    second (see rate-limits/), and no list price, credit price or plan tier is
+    published for it. The pricing page's "Advanced API" line under Enterprise is
+    the only public link between the two products.
+  contact: https://www.leadspace.com/contact
+x-evidence:
+- url: https://www.leadspace.com/solutions/sidekick/pricing
+  http_status: 200
+  fetched: '2026-08-13'
+  note: >-
+    Framer-hosted page; the rendered HTML returns a client-side shell to a plain
+    fetch. Plan names, prices, credit allowances and feature lists were read
+    from the site's own published Framer search index
+    (https://framerusercontent.com/sites/iwQiJ7yCRvCsVZN7yxJqy/searchIndex-BJvIXaBi8uSu.json),
+    which is Leadspace's own first-party rendering of that page's text.
+- url: https://www.leadspace.com/solutions/leadspace-mcp
+  http_status: 200
+  fetched: '2026-08-13'
+  note: Source of the per-action credit costs table.
