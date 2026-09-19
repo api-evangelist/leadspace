@@ -159,6 +159,8 @@ apis:
     https://support.leadspace.com/hc/en-us/articles/23687993264284-Leadspace-Single-Direct-API-v4-Technical-Specifications
   baseURL: https://apigw.leadspace.com
   tags:
+  - Intents
+  tags_raw:
   - Intent
   properties:
   - type: OpenAPI
