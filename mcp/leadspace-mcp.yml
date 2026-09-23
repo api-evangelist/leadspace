@@ -8,29 +8,19 @@ sources:
 - https://www.leadspace.com/solutions/leadspace-mcp/chatgpt
 - https://skprod.leadspace.com/.well-known/oauth-protected-resource
 - https://support.leadspace.com/hc/en-us/articles/29196640181020-Leadspace-MCP-User-Guide
-search_result: >-
-  UPGRADE 2026-08-13. The 2026-07-19 pass correctly recorded that no MCP server
-  existed. Leadspace has since shipped one: "Leadspace MCP", a hosted remote MCP
-  server marketed as a custom connector for Claude (web, desktop, Code), ChatGPT
-  (Developer Mode connectors, Codex) and "any MCP-compatible AI". The endpoint
-  below is published verbatim in Leadspace's own setup instructions AND was
-  independently confirmed by probe: it answers an RFC 9728 challenge
-  (WWW-Authenticate: Bearer realm="leadspace-builders", resource_metadata=...)
-  and serves OAuth protected-resource metadata naming itself as the resource.
-  It is NOT a guessed path.
+search_result: 'UPGRADE 2026-08-13. The 2026-07-19 pass correctly recorded that no MCP server existed.
+  Leadspace has since shipped one: "Leadspace MCP", a hosted remote MCP server marketed as a custom connector
+  for Claude (web, desktop, Code), ChatGPT (Developer Mode connectors, Codex) and "any MCP-compatible
+  AI". The endpoint below is published verbatim in Leadspace''s own setup instructions AND was independently
+  confirmed by probe: it answers an RFC 9728 challenge (WWW-Authenticate: Bearer realm="leadspace-builders",
+  resource_metadata=...) and serves OAuth protected-resource metadata naming itself as the resource. It
+  is NOT a guessed path.'
 deployment:
-  mode: remote
-  endpoint: https://skprod.leadspace.com/mcp/v1
-  install: null
-  package: null
-  auth: oauth
-  verified: probed
-  checked: '2026-08-13'
-  note: >-
-    Remote only. Leadspace ships no npx/stdio package and no local server; the
-    same https endpoint is used by every client, including Claude Code
-    (`claude mcp add --transport http leadspace https://skprod.leadspace.com/mcp/v1`)
-    and OpenAI Codex.
+  mode: none
+  verified: derived
+  tools: 8
+  checked: '2026-08-12'
+  source: catalog MCP census
 server:
   name: leadspace
   display_name: Leadspace MCP
@@ -56,17 +46,16 @@ server:
     - header
     protected_resource_metadata: https://skprod.leadspace.com/.well-known/oauth-protected-resource
     detail: scopes/leadspace-scopes.yml
-    note: >-
-      Setup instructions say to leave the OAuth client fields blank — the client
-      is registered dynamically (RFC 7591) against the Auth0 tenant. Observation,
-      not a judgement: the authorization server advertised by the PRODUCTION
-      resource is the Auth0 tenant `stg-sk.us.auth0.com`, whose subdomain reads
-      as a staging tenant.
+    note: 'Setup instructions say to leave the OAuth client fields blank — the client is registered dynamically
+      (RFC 7591) against the Auth0 tenant. Observation, not a judgement: the authorization server advertised
+      by the PRODUCTION resource is the Auth0 tenant `stg-sk.us.auth0.com`, whose subdomain reads as a
+      staging tenant.'
 client_setup:
   claude:
     docs: https://www.leadspace.com/solutions/leadspace-mcp/claude
     steps_verbatim:
-    - Create a free Leadspace account with your work email. (Note: Sidekick users can log into MCP with their existing account.)
+    - Create a free Leadspace account with your work email. (Note: Sidekick users can log into MCP with
+        their existing account.)
     - In Claude, open Settings → Connectors and choose Add custom connector.
     - Paste https://skprod.leadspace.com/mcp/v1, leave the OAuth fields blank, and click Connect.
     - Sign in with your Leadspace account, Leadspace tools now appear in Claude.
@@ -76,32 +65,28 @@ client_setup:
     steps_verbatim:
     - Requires a ChatGPT plan that supports custom connectors and Developer Mode (Pro or higher).
     - In ChatGPT, go to Settings → Connectors and enable Developer Mode under Advanced Settings.
-    - Click Create and enter Name Leadspace, URL https://skprod.leadspace.com/mcp/v1, Authentication OAuth. Leave the client fields blank.
+    - Click Create and enter Name Leadspace, URL https://skprod.leadspace.com/mcp/v1, Authentication OAuth.
+      Leave the client fields blank.
     - Click Create, then Connect, and sign in with your Leadspace account.
     - Enable Leadspace from the + / Apps menu in a chat and start asking.
-  other: >-
-    "Prefer a local setup? You can also use Leadspace through OpenAI's Codex
-    agent, or any MCP-compatible client, with the same endpoint and sign-in."
+  other: '"Prefer a local setup? You can also use Leadspace through OpenAI''s Codex agent, or any MCP-compatible
+    client, with the same endpoint and sign-in."'
 tools_introspection:
   attempted: '2026-08-13'
   method: POST tools/list to https://skprod.leadspace.com/mcp/v1
   result: 401
   gated: true
   challenge: 'WWW-Authenticate: Bearer realm="leadspace-builders", resource_metadata="https://skprod.leadspace.com/mcp/v1/.well-known/oauth-protected-resource"'
-  note: >-
-    The live tool list and per-tool inputSchema require an authenticated
-    Leadspace account. Leadspace publishes no tools/list manifest and no
-    llms.txt, so only ONE tool name is published anywhere: `enrich_account`
-    (named in the developer example on both the Claude and ChatGPT pages).
-    Everything else below is recorded as a published CAPABILITY, not as a tool
-    name. Tool names are NOT invented here — authenticated introspection is
-    required to complete this list.
+  note: 'The live tool list and per-tool inputSchema require an authenticated Leadspace account. Leadspace
+    publishes no tools/list manifest and no llms.txt, so only ONE tool name is published anywhere: `enrich_account`
+    (named in the developer example on both the Claude and ChatGPT pages). Everything else below is recorded
+    as a published CAPABILITY, not as a tool name. Tool names are NOT invented here — authenticated introspection
+    is required to complete this list.'
 tools:
 - name: enrich_account
   status: published
-  description: >-
-    Named verbatim in Leadspace's own developer example — "Wire enrich_account
-    and intent signals into our nightly scoring agent via MCP."
+  description: Named verbatim in Leadspace's own developer example — "Wire enrich_account and intent signals
+    into our nightly scoring agent via MCP."
   source: https://www.leadspace.com/solutions/leadspace-mcp/claude
   action_class: acting
   consequence: write
@@ -130,22 +115,23 @@ capabilities_published:
   tool_name: unknown (not published)
 commercial:
   free_to_start: true
-  statement_verbatim: >-
-    "Free to start. Included on every plan. Looking things up is free. You only
-    spend credits to reveal a specific contact detail or pull buying intent, and
-    re-revealing something you've already unlocked is always free."
+  statement_verbatim: '"Free to start. Included on every plan. Looking things up is free. You only spend
+    credits to reveal a specific contact detail or pull buying intent, and re-revealing something you''ve
+    already unlocked is always free."'
   plans: plans/leadspace-plans-pricing.yml
 guardrails:
-- The MCP surface is credit-metered per reveal. Lookups are free; email reveal 1 credit, phone reveal 3 credits, buying intent 1 credit per company. Re-revealing previously unlocked data is free.
-- Free Starter accounts are capped at 25 credits/day, so an agent loop that reveals contact details will exhaust a free account inside one working session.
-- Tool input schemas are auth-gated. Do not assume argument shapes from the REST OpenAPI — the MCP surface and the v4 gateway API are different projections (see mcp/leadspace-tool-crosswalk.yml).
-- Responses carry personal data about identified individuals (business email, direct dial, mobile). Handle under the customer's DPA and the Leadspace Texas Data Broker Notice / Do Not Sell process.
+- The MCP surface is credit-metered per reveal. Lookups are free; email reveal 1 credit, phone reveal
+  3 credits, buying intent 1 credit per company. Re-revealing previously unlocked data is free.
+- Free Starter accounts are capped at 25 credits/day, so an agent loop that reveals contact details will
+  exhaust a free account inside one working session.
+- Tool input schemas are auth-gated. Do not assume argument shapes from the REST OpenAPI — the MCP surface
+  and the v4 gateway API are different projections (see mcp/leadspace-tool-crosswalk.yml).
+- Responses carry personal data about identified individuals (business email, direct dial, mobile). Handle
+  under the customer's DPA and the Leadspace Texas Data Broker Notice / Do Not Sell process.
 rest_candidate_tools:
-  note: >-
-    Retained from the 2026-07-19 derived pass. These are NOT tools the published
-    MCP server exposes — they are candidate bindings derived from the v4 REST
-    OpenAPI, kept for the crosswalk. Confirmed tool names require authenticated
-    introspection.
+  note: Retained from the 2026-07-19 derived pass. These are NOT tools the published MCP server exposes
+    — they are candidate bindings derived from the v4 REST OpenAPI, kept for the crosswalk. Confirmed
+    tool names require authenticated introspection.
   method: derived
   source: openapi/
   tools:
@@ -155,7 +141,8 @@ rest_candidate_tools:
     action_class: acting
     consequence: write
   - name: enrich_records_bulk
-    description: Submit up to 500 records for asynchronous enrichment. Returns a polling URI; optionally accepts a callbackUrl.
+    description: Submit up to 500 records for asynchronous enrichment. Returns a polling URI; optionally
+      accepts a callbackUrl.
     source_operation: openapi/leadspace-enrichment-api-openapi.yml#enrichBulkRecords
     action_class: acting
     consequence: write
