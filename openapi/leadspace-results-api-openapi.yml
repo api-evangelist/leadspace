@@ -108,27 +108,7 @@ paths:
     - url: https://apigw.leadspace.com
       description: Leadspace API gateway (production)
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
-    ServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        tracking_id:
-          type: string
-        request_timestamp:
-          type: string
-        details:
-          type: string
     DiscoveryResults:
       type: object
       properties:
@@ -144,6 +124,41 @@ components:
                 type: string
               data:
                 type: object
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        tracking_id:
+          type: string
+        request_timestamp:
+          type: string
+        details:
+          type: string
+    EnrichedRecord:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/EnrichedPerson'
+        company:
+          $ref: '#/components/schemas/EnrichedCompany'
+        enrichment_status:
+          type: string
+          enum:
+          - Not Enriched
+          - Company Enriched
+          - Person Enriched
+          - Person & Company Enriched
+        cdi_matched:
+          type: string
+        total_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileScore'
+        max_positive_total_score_profiles:
+          type: array
+          items:
+            type: string
     EnrichedPerson:
       type: object
       properties:
@@ -217,54 +232,21 @@ components:
               type: array
               items:
                 type: string
-    BulkResults:
+    CompanyFunding:
       type: object
       properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnrichmentResult'
-    ProfileScore:
-      type: object
-      properties:
-        profile_name:
+        last_round_investor_count:
+          type: number
+        total_rounds_count:
+          type: number
+        last_round_date:
           type: string
-        score:
-          type: object
-          properties:
-            value:
-              type: number
-            bucket:
-              type: string
-              enum:
-              - A
-              - B
-              - C
-              - D
-    EnrichedRecord:
-      type: object
-      properties:
-        person:
-          $ref: '#/components/schemas/EnrichedPerson'
-        company:
-          $ref: '#/components/schemas/EnrichedCompany'
-        enrichment_status:
+        last_round_money_raised:
           type: string
-          enum:
-          - Not Enriched
-          - Company Enriched
-          - Person Enriched
-          - Person & Company Enriched
-        cdi_matched:
+        last_round_type:
           type: string
-        total_scores:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileScore'
-        max_positive_total_score_profiles:
-          type: array
-          items:
-            type: string
+        cb_url:
+          type: string
     EnrichedAddress:
       type: object
       properties:
@@ -280,21 +262,43 @@ components:
           type: string
         zipcode:
           type: string
-    Error_2:
+    EnrichmentResult:
       type: object
-      description: General Leadspace JSON error envelope
       properties:
-        error:
+        status:
           type: string
-          description: Error description
-        tracking_id:
+          enum:
+          - success
+          - failure
+        external_id:
           type: string
-          description: Leadspace tracking identifier for further inspection
-        request_timestamp:
-          type: string
-          description: Timestamp assigned when the request reached Leadspace servers
-        details:
-          type: string
+        data:
+          $ref: '#/components/schemas/EnrichedRecord'
+    DepartmentSize:
+      type: object
+      properties:
+        hr:
+          type: number
+        sales:
+          type: number
+        mgmt:
+          type: number
+        product_mgmt:
+          type: number
+        it:
+          type: number
+        administration:
+          type: number
+        marketing:
+          type: number
+        operations:
+          type: number
+        rnd:
+          type: number
+        business_dev:
+          type: number
+        finance:
+          type: number
     EnrichedCompany:
       type: object
       properties:
@@ -406,21 +410,86 @@ components:
               type: array
               items:
                 type: string
-    CompanyFunding:
+    Error_2:
+      type: object
+      description: General Leadspace JSON error envelope
+      properties:
+        error:
+          type: string
+          description: Error description
+        tracking_id:
+          type: string
+          description: Leadspace tracking identifier for further inspection
+        request_timestamp:
+          type: string
+          description: Timestamp assigned when the request reached Leadspace servers
+        details:
+          type: string
+    BulkResults:
       type: object
       properties:
-        last_round_investor_count:
-          type: number
-        total_rounds_count:
-          type: number
-        last_round_date:
-          type: string
-        last_round_money_raised:
-          type: string
-        last_round_type:
-          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrichmentResult'
+    CompanyFamilyTree:
+      type: object
+      description: The company hierarchy in addition to the matched company
+      properties:
+        companies:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - DU
+                - GU
+                - SITE
+                - PARENT
+                - HQ
+                - SU
+              name:
+                type: string
+              ls_id:
+                type: string
+              website:
+                type: string
+              phone:
+                type: string
+              sic:
+                type: string
+              naics:
+                type: string
+              address:
+                $ref: '#/components/schemas/EnrichedAddress'
+    CompanyInvestors:
+      type: object
+      properties:
         cb_url:
           type: string
+        last_investor_name:
+          type: string
+        company_investors:
+          type: string
+    ProfileScore:
+      type: object
+      properties:
+        profile_name:
+          type: string
+        score:
+          type: object
+          properties:
+            value:
+              type: number
+            bucket:
+              type: string
+              enum:
+              - A
+              - B
+              - C
+              - D
     IntentModeling:
       type: object
       properties:
@@ -454,84 +523,6 @@ components:
           type: array
           items:
             type: string
-    CompanyInvestors:
-      type: object
-      properties:
-        cb_url:
-          type: string
-        last_investor_name:
-          type: string
-        company_investors:
-          type: string
-    CompanyFamilyTree:
-      type: object
-      description: The company hierarchy in addition to the matched company
-      properties:
-        companies:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - DU
-                - GU
-                - SITE
-                - PARENT
-                - HQ
-                - SU
-              name:
-                type: string
-              ls_id:
-                type: string
-              website:
-                type: string
-              phone:
-                type: string
-              sic:
-                type: string
-              naics:
-                type: string
-              address:
-                $ref: '#/components/schemas/EnrichedAddress'
-    DepartmentSize:
-      type: object
-      properties:
-        hr:
-          type: number
-        sales:
-          type: number
-        mgmt:
-          type: number
-        product_mgmt:
-          type: number
-        it:
-          type: number
-        administration:
-          type: number
-        marketing:
-          type: number
-        operations:
-          type: number
-        rnd:
-          type: number
-        business_dev:
-          type: number
-        finance:
-          type: number
-    EnrichmentResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-        external_id:
-          type: string
-        data:
-          $ref: '#/components/schemas/EnrichedRecord'
     IntentData:
       type: object
       properties:
@@ -569,6 +560,15 @@ components:
           type: string
         data:
           $ref: '#/components/schemas/IntentData'
+  responses:
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
   securitySchemes:
     bearerAuth:
       type: http

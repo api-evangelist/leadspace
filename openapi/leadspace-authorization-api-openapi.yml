@@ -77,6 +77,18 @@ components:
           type: string
         refreshToken:
           type: string
+    AuthorizationResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: The generated token to use in API v4 enrichment requests
+        refreshToken:
+          type: string
+          description: Value to use in refresh token requests
+        expiration:
+          type: integer
+          description: Epoch seconds of the expiration moment
     AuthorizationRequest:
       type: object
       required:
@@ -95,18 +107,6 @@ components:
           description: For API v4 services use API_GATEWAY
           examples:
           - API_GATEWAY
-    AuthorizationResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The generated token to use in API v4 enrichment requests
-        refreshToken:
-          type: string
-          description: Value to use in refresh token requests
-        expiration:
-          type: integer
-          description: Epoch seconds of the expiration moment
   securitySchemes:
     bearerAuth:
       type: http
