@@ -63,9 +63,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
   schemas:
     RefreshRequest:
       type: object
@@ -107,6 +104,9 @@ components:
           description: For API v4 services use API_GATEWAY
           examples:
           - API_GATEWAY
+  responses:
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
   securitySchemes:
     bearerAuth:
       type: http

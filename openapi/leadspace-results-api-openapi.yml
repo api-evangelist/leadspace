@@ -108,7 +108,27 @@ paths:
     - url: https://apigw.leadspace.com
       description: Leadspace API gateway (production)
 components:
+  responses:
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        tracking_id:
+          type: string
+        request_timestamp:
+          type: string
+        details:
+          type: string
     DiscoveryResults:
       type: object
       properties:
@@ -124,17 +144,108 @@ components:
                 type: string
               data:
                 type: object
-    Error:
+    Error_2:
       type: object
+      description: General Leadspace JSON error envelope
       properties:
         error:
           type: string
+          description: Error description
         tracking_id:
           type: string
+          description: Leadspace tracking identifier for further inspection
         request_timestamp:
           type: string
+          description: Timestamp assigned when the request reached Leadspace servers
         details:
           type: string
+    CompanyFamilyTree:
+      type: object
+      description: The company hierarchy in addition to the matched company
+      properties:
+        companies:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - DU
+                - GU
+                - SITE
+                - PARENT
+                - HQ
+                - SU
+              name:
+                type: string
+              ls_id:
+                type: string
+              website:
+                type: string
+              phone:
+                type: string
+              sic:
+                type: string
+              naics:
+                type: string
+              address:
+                $ref: '#/components/schemas/EnrichedAddress'
+    IntentModeling:
+      type: object
+      properties:
+        model:
+          type: string
+        model_level:
+          type: array
+          items:
+            type: string
+            enum:
+            - High
+            - Medium
+            - Low
+            - NO_INTENT
+        source:
+          type: string
+          description: Either LS Intent or Bombora
+        cadence:
+          type: string
+        new_high_intent:
+          type: string
+        industries:
+          type: array
+          items:
+            type: string
+        top_metros:
+          type: array
+          items:
+            type: string
+        domain_origins:
+          type: array
+          items:
+            type: string
+    CompanyFunding:
+      type: object
+      properties:
+        last_round_investor_count:
+          type: number
+        total_rounds_count:
+          type: number
+        last_round_date:
+          type: string
+        last_round_money_raised:
+          type: string
+        last_round_type:
+          type: string
+        cb_url:
+          type: string
+    BulkResults:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrichmentResult'
     EnrichedRecord:
       type: object
       properties:
@@ -159,6 +270,23 @@ components:
           type: array
           items:
             type: string
+    ProfileScore:
+      type: object
+      properties:
+        profile_name:
+          type: string
+        score:
+          type: object
+          properties:
+            value:
+              type: number
+            bucket:
+              type: string
+              enum:
+              - A
+              - B
+              - C
+              - D
     EnrichedPerson:
       type: object
       properties:
@@ -232,48 +360,6 @@ components:
               type: array
               items:
                 type: string
-    CompanyFunding:
-      type: object
-      properties:
-        last_round_investor_count:
-          type: number
-        total_rounds_count:
-          type: number
-        last_round_date:
-          type: string
-        last_round_money_raised:
-          type: string
-        last_round_type:
-          type: string
-        cb_url:
-          type: string
-    EnrichedAddress:
-      type: object
-      properties:
-        country:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        region:
-          type: string
-        address:
-          type: string
-        zipcode:
-          type: string
-    EnrichmentResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-        external_id:
-          type: string
-        data:
-          $ref: '#/components/schemas/EnrichedRecord'
     DepartmentSize:
       type: object
       properties:
@@ -299,6 +385,42 @@ components:
           type: number
         finance:
           type: number
+    EnrichedAddress:
+      type: object
+      properties:
+        country:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        address:
+          type: string
+        zipcode:
+          type: string
+    CompanyInvestors:
+      type: object
+      properties:
+        cb_url:
+          type: string
+        last_investor_name:
+          type: string
+        company_investors:
+          type: string
+    EnrichmentResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+        external_id:
+          type: string
+        data:
+          $ref: '#/components/schemas/EnrichedRecord'
     EnrichedCompany:
       type: object
       properties:
@@ -410,119 +532,18 @@ components:
               type: array
               items:
                 type: string
-    Error_2:
-      type: object
-      description: General Leadspace JSON error envelope
-      properties:
-        error:
-          type: string
-          description: Error description
-        tracking_id:
-          type: string
-          description: Leadspace tracking identifier for further inspection
-        request_timestamp:
-          type: string
-          description: Timestamp assigned when the request reached Leadspace servers
-        details:
-          type: string
-    BulkResults:
+    IntentResults:
       type: object
       properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnrichmentResult'
-    CompanyFamilyTree:
-      type: object
-      description: The company hierarchy in addition to the matched company
-      properties:
-        companies:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - DU
-                - GU
-                - SITE
-                - PARENT
-                - HQ
-                - SU
-              name:
-                type: string
-              ls_id:
-                type: string
-              website:
-                type: string
-              phone:
-                type: string
-              sic:
-                type: string
-              naics:
-                type: string
-              address:
-                $ref: '#/components/schemas/EnrichedAddress'
-    CompanyInvestors:
-      type: object
-      properties:
-        cb_url:
+        status:
           type: string
-        last_investor_name:
+          enum:
+          - Success
+          - Failure
+        external_id:
           type: string
-        company_investors:
-          type: string
-    ProfileScore:
-      type: object
-      properties:
-        profile_name:
-          type: string
-        score:
-          type: object
-          properties:
-            value:
-              type: number
-            bucket:
-              type: string
-              enum:
-              - A
-              - B
-              - C
-              - D
-    IntentModeling:
-      type: object
-      properties:
-        model:
-          type: string
-        model_level:
-          type: array
-          items:
-            type: string
-            enum:
-            - High
-            - Medium
-            - Low
-            - NO_INTENT
-        source:
-          type: string
-          description: Either LS Intent or Bombora
-        cadence:
-          type: string
-        new_high_intent:
-          type: string
-        industries:
-          type: array
-          items:
-            type: string
-        top_metros:
-          type: array
-          items:
-            type: string
-        domain_origins:
-          type: array
-          items:
-            type: string
+        data:
+          $ref: '#/components/schemas/IntentData'
     IntentData:
       type: object
       properties:
@@ -548,27 +569,6 @@ components:
               type: array
               items:
                 type: string
-    IntentResults:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-        external_id:
-          type: string
-        data:
-          $ref: '#/components/schemas/IntentData'
-  responses:
-    ServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
   securitySchemes:
     bearerAuth:
       type: http

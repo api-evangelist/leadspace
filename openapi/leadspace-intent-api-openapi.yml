@@ -46,28 +46,18 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    InsufficientCredits:
-      description: Insufficient credits or program ID is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request failed due to insufficient basic input, or the JSON format is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        tracking_id:
+          type: string
+        request_timestamp:
+          type: string
+        details:
+          type: string
     IntentRequest:
       type: object
       required:
@@ -84,17 +74,14 @@ components:
                 type: string
         external_bulk_id:
           type: string
-    Error:
+    IntentAccepted:
       type: object
       properties:
-        error:
+        id:
           type: string
-        tracking_id:
-          type: string
-        request_timestamp:
-          type: string
-        details:
-          type: string
+          description: The polling endpoint URI to extract the bulk results
+          examples:
+          - /v1/intent/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
     IntentCompanyInput:
       type: object
       required:
@@ -116,14 +103,27 @@ components:
               type: string
             city:
               type: string
-    IntentAccepted:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The polling endpoint URI to extract the bulk results
-          examples:
-          - /v1/intent/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
+  responses:
+    InsufficientCredits:
+      description: Insufficient credits or program ID is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
+    BadRequest:
+      description: The request failed due to insufficient basic input, or the JSON format is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

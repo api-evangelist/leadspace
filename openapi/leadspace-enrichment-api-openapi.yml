@@ -94,30 +94,126 @@ paths:
                 '200':
                   description: Callback acknowledged
 components:
-  responses:
-    BadRequest:
-      description: The request failed due to insufficient basic input, or the JSON format is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
-    InsufficientCredits:
-      description: Insufficient credits, or the program ID is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimitExceeded:
-      description: Rate limit was exceeded
   schemas:
+    Error:
+      type: object
+      description: General Leadspace JSON error envelope
+      properties:
+        error:
+          type: string
+          description: Error description
+        tracking_id:
+          type: string
+          description: Leadspace tracking identifier for further inspection
+        request_timestamp:
+          type: string
+          description: Timestamp assigned when the request reached Leadspace servers
+        details:
+          type: string
+    IntentModeling:
+      type: object
+      properties:
+        model:
+          type: string
+        model_level:
+          type: array
+          items:
+            type: string
+            enum:
+            - High
+            - Medium
+            - Low
+            - NO_INTENT
+        source:
+          type: string
+          description: Either LS Intent or Bombora
+        cadence:
+          type: string
+        new_high_intent:
+          type: string
+        industries:
+          type: array
+          items:
+            type: string
+        top_metros:
+          type: array
+          items:
+            type: string
+        domain_origins:
+          type: array
+          items:
+            type: string
+    BulkEnrichmentRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          maxItems: 500
+          description: Up to 500 records per POST
+          items:
+            $ref: '#/components/schemas/SingleEnrichmentRequest'
+        callbackUrl:
+          type: string
+          description: URL Leadspace calls back when bulk processing completes
+        external_bulk_id:
+          type: string
+    ProfileScore:
+      type: object
+      properties:
+        profile_name:
+          type: string
+        score:
+          type: object
+          properties:
+            value:
+              type: number
+            bucket:
+              type: string
+              enum:
+              - A
+              - B
+              - C
+              - D
+    BulkCallback:
+      type: object
+      properties:
+        bulkId:
+          type: string
+        callbackMethod:
+          type: object
+          properties:
+            callbackUrl:
+              type: string
+            pollingUrl:
+              type: string
+        bulkStatus:
+          type: string
+          enum:
+          - COMPLETED
+          - INSUFFICIENT_CREDITS
+          - INTERNAL_ERROR
+        successRecords:
+          type: integer
+        personEnriched:
+          type: integer
+        companyEnriched:
+          type: integer
+    SingleEnrichmentRequest:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/PersonInput'
+        company:
+          $ref: '#/components/schemas/CompanyInput'
+        external_id:
+          type: string
+          description: External identifier echoed back on the result. Not used for processing.
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
     CompanyFamilyTree:
       type: object
       description: The company hierarchy in addition to the matched company
@@ -150,77 +246,15 @@ components:
                 type: string
               address:
                 $ref: '#/components/schemas/EnrichedAddress'
-    PersonInput:
+    CompanyInvestors:
       type: object
       properties:
-        first_name:
+        cb_url:
           type: string
-        last_name:
+        last_investor_name:
           type: string
-        email:
+        company_investors:
           type: string
-        title:
-          type: string
-        person_phone:
-          type: string
-        person_country:
-          type: string
-        linkedinUrl:
-          type: string
-    EnrichedAddress:
-      type: object
-      properties:
-        country:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        region:
-          type: string
-        address:
-          type: string
-        zipcode:
-          type: string
-    SingleEnrichmentRequest:
-      type: object
-      properties:
-        person:
-          $ref: '#/components/schemas/PersonInput'
-        company:
-          $ref: '#/components/schemas/CompanyInput'
-        external_id:
-          type: string
-          description: External identifier echoed back on the result. Not used for processing.
-        custom_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField'
-    DepartmentSize:
-      type: object
-      properties:
-        hr:
-          type: number
-        sales:
-          type: number
-        mgmt:
-          type: number
-        product_mgmt:
-          type: number
-        it:
-          type: number
-        administration:
-          type: number
-        marketing:
-          type: number
-        operations:
-          type: number
-        rnd:
-          type: number
-        business_dev:
-          type: number
-        finance:
-          type: number
     EnrichedCompany:
       type: object
       properties:
@@ -332,6 +366,43 @@ components:
               type: array
               items:
                 type: string
+    DepartmentSize:
+      type: object
+      properties:
+        hr:
+          type: number
+        sales:
+          type: number
+        mgmt:
+          type: number
+        product_mgmt:
+          type: number
+        it:
+          type: number
+        administration:
+          type: number
+        marketing:
+          type: number
+        operations:
+          type: number
+        rnd:
+          type: number
+        business_dev:
+          type: number
+        finance:
+          type: number
+    EnrichmentResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+        external_id:
+          type: string
+        data:
+          $ref: '#/components/schemas/EnrichedRecord'
     CompanyInput:
       type: object
       properties:
@@ -349,48 +420,58 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/AddressInput'
-    CompanyInvestors:
+    PersonInput:
       type: object
       properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        title:
+          type: string
+        person_phone:
+          type: string
+        person_country:
+          type: string
+        linkedinUrl:
+          type: string
+    CustomField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    CompanyFunding:
+      type: object
+      properties:
+        last_round_investor_count:
+          type: number
+        total_rounds_count:
+          type: number
+        last_round_date:
+          type: string
+        last_round_money_raised:
+          type: string
+        last_round_type:
+          type: string
         cb_url:
           type: string
-        last_investor_name:
-          type: string
-        company_investors:
-          type: string
-    IntentModeling:
+    AddressInput:
       type: object
       properties:
-        model:
+        country:
           type: string
-        model_level:
-          type: array
-          items:
-            type: string
-            enum:
-            - High
-            - Medium
-            - Low
-            - NO_INTENT
-        source:
+        state:
           type: string
-          description: Either LS Intent or Bombora
-        cadence:
+        city:
           type: string
-        new_high_intent:
+        street:
           type: string
-        industries:
-          type: array
-          items:
-            type: string
-        top_metros:
-          type: array
-          items:
-            type: string
-        domain_origins:
-          type: array
-          items:
-            type: string
+        postalcode:
+          type: string
     EnrichedRecord:
       type: object
       properties:
@@ -488,96 +569,7 @@ components:
               type: array
               items:
                 type: string
-    CompanyFunding:
-      type: object
-      properties:
-        last_round_investor_count:
-          type: number
-        total_rounds_count:
-          type: number
-        last_round_date:
-          type: string
-        last_round_money_raised:
-          type: string
-        last_round_type:
-          type: string
-        cb_url:
-          type: string
-    EnrichmentResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-        external_id:
-          type: string
-        data:
-          $ref: '#/components/schemas/EnrichedRecord'
-    Error:
-      type: object
-      description: General Leadspace JSON error envelope
-      properties:
-        error:
-          type: string
-          description: Error description
-        tracking_id:
-          type: string
-          description: Leadspace tracking identifier for further inspection
-        request_timestamp:
-          type: string
-          description: Timestamp assigned when the request reached Leadspace servers
-        details:
-          type: string
-    BulkEnrichmentRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          maxItems: 500
-          description: Up to 500 records per POST
-          items:
-            $ref: '#/components/schemas/SingleEnrichmentRequest'
-        callbackUrl:
-          type: string
-          description: URL Leadspace calls back when bulk processing completes
-        external_bulk_id:
-          type: string
-    BulkCallback:
-      type: object
-      properties:
-        bulkId:
-          type: string
-        callbackMethod:
-          type: object
-          properties:
-            callbackUrl:
-              type: string
-            pollingUrl:
-              type: string
-        bulkStatus:
-          type: string
-          enum:
-          - COMPLETED
-          - INSUFFICIENT_CREDITS
-          - INTERNAL_ERROR
-        successRecords:
-          type: integer
-        personEnriched:
-          type: integer
-        companyEnriched:
-          type: integer
-    CustomField:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-    AddressInput:
+    EnrichedAddress:
       type: object
       properties:
         country:
@@ -586,9 +578,11 @@ components:
           type: string
         city:
           type: string
-        street:
+        region:
           type: string
-        postalcode:
+        address:
+          type: string
+        zipcode:
           type: string
     BulkAccepted:
       type: object
@@ -598,23 +592,29 @@ components:
           description: The polling endpoint URI to extract the bulk results
           examples:
           - /v3/enrichment/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
-    ProfileScore:
-      type: object
-      properties:
-        profile_name:
-          type: string
-        score:
-          type: object
-          properties:
-            value:
-              type: number
-            bucket:
-              type: string
-              enum:
-              - A
-              - B
-              - C
-              - D
+  responses:
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
+    RateLimitExceeded:
+      description: Rate limit was exceeded
+    InsufficientCredits:
+      description: Insufficient credits, or the program ID is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request failed due to insufficient basic input, or the JSON format is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
