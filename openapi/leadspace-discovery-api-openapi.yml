@@ -62,6 +62,27 @@ paths:
                 '200':
                   description: Callback acknowledged
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
+    BadRequest:
+      description: Request fails basic input validation or JSON format is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InsufficientCredits:
+      description: Insufficient credits to process this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     DiscoveryItem:
       type: object
@@ -89,6 +110,45 @@ components:
               description: Required person location. Multiple values are comma delimited. Omit entirely to receive all locations.
         external_id:
           type: string
+    DiscoveryCallback:
+      type: object
+      properties:
+        bulkId:
+          type: string
+        callbackMethod:
+          type: object
+          properties:
+            callbackUrl:
+              type: string
+            pollingUrl:
+              type: string
+        bulkStatus:
+          type: string
+    DiscoveryRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          maxItems: 500
+          description: Up to 500 accounts per bulk request
+          items:
+            $ref: '#/components/schemas/DiscoveryItem'
+        external_bulk_id:
+          type: string
+        callbackUrl:
+          type: string
+          description: URL Leadspace calls back when bulk processing completes
+    RequiredResultsFields:
+      type: object
+      properties:
+        directPhone:
+          type: boolean
+        companyPhone:
+          type: boolean
+        verifiedEmail:
+          type: boolean
     Error:
       type: object
       properties:
@@ -121,15 +181,14 @@ components:
           type: array
           items:
             type: string
-    RequiredResultsFields:
+    DiscoveryAccepted:
       type: object
       properties:
-        directPhone:
-          type: boolean
-        companyPhone:
-          type: boolean
-        verifiedEmail:
-          type: boolean
+        id:
+          type: string
+          description: The polling endpoint URI to extract the bulk results
+          examples:
+          - /v1/expansion/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
     DiscoveryAccount:
       type: object
       description: Either companyName or companyWebsite is mandatory
@@ -140,65 +199,6 @@ components:
           type: string
         companylinkedinUrl:
           type: string
-    DiscoveryCallback:
-      type: object
-      properties:
-        bulkId:
-          type: string
-        callbackMethod:
-          type: object
-          properties:
-            callbackUrl:
-              type: string
-            pollingUrl:
-              type: string
-        bulkStatus:
-          type: string
-    DiscoveryRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          maxItems: 500
-          description: Up to 500 accounts per bulk request
-          items:
-            $ref: '#/components/schemas/DiscoveryItem'
-        external_bulk_id:
-          type: string
-        callbackUrl:
-          type: string
-          description: URL Leadspace calls back when bulk processing completes
-    DiscoveryAccepted:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The polling endpoint URI to extract the bulk results
-          examples:
-          - /v1/expansion/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
-  responses:
-    InsufficientCredits:
-      description: Insufficient credits to process this request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
-    BadRequest:
-      description: Request fails basic input validation or JSON format is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
