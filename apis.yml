@@ -231,6 +231,9 @@ apis:
   - type: Documentation
     url: https://support.leadspace.com/hc/en-us/articles/360012583400-Leadspace-Intent-Only-API
 common:
+- type: CapabilityMap
+  url: capabilities/leadspace-capability-edges.yml
+  name: Leadspace Business Capability Map
 - type: Overlay
   url: overlays/leadspace-discovery-overlay.yaml
 - type: AgenticAccess

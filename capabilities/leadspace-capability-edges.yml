@@ -1,0 +1,25 @@
+slug: leadspace
+provider: Leadspace
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Enrichment
+  spec_file: leadspace-enrichment-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /enrichment/enrich/single  Enrich a single person and/or company record ... enriches
+    person (lead/contact) and company (account) records against the Leadspace Universal Graph
+  reason: Resolves partial person/company records into full profiles with firmographics and family-tree
+    hierarchy — identity resolution and golden-record enrichment of customer/account master data.
