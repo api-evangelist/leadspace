@@ -95,152 +95,120 @@ paths:
                   description: Callback acknowledged
 components:
   schemas:
-    CompanyFunding:
+    EnrichedPerson:
       type: object
       properties:
-        last_round_investor_count:
-          type: number
-        total_rounds_count:
-          type: number
-        last_round_date:
+        ug_person_id:
           type: string
-        last_round_money_raised:
-          type: string
-        last_round_type:
-          type: string
-        cb_url:
-          type: string
-    AddressInput:
-      type: object
-      properties:
-        country:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        street:
-          type: string
-        postalcode:
-          type: string
-    EnrichedRecord:
-      type: object
-      properties:
-        person:
-          $ref: '#/components/schemas/EnrichedPerson'
-        company:
-          $ref: '#/components/schemas/EnrichedCompany'
-        enrichment_status:
-          type: string
-          enum:
-          - Not Enriched
-          - Company Enriched
-          - Person Enriched
-          - Person & Company Enriched
-        cdi_matched:
-          type: string
-        total_scores:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProfileScore'
-        max_positive_total_score_profiles:
-          type: array
-          items:
-            type: string
-    BulkEnrichmentRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          maxItems: 500
-          description: Up to 500 records per POST
-          items:
-            $ref: '#/components/schemas/SingleEnrichmentRequest'
-        callbackUrl:
-          type: string
-          description: URL Leadspace calls back when bulk processing completes
-        external_bulk_id:
-          type: string
-    PersonInput:
-      type: object
-      properties:
+          description: Unique Leadspace person identifier
         first_name:
           type: string
         last_name:
           type: string
-        email:
-          type: string
         title:
           type: string
-        person_phone:
+        department:
           type: string
-        person_country:
-          type: string
-        linkedinUrl:
-          type: string
-    CompanyInput:
-      type: object
-      properties:
-        lsid:
-          type: string
-          description: Leadspace company identifier; when supplied it is matched on first
-        ugLsid:
-          type: string
-          description: Universal Graph company identifier
-        name:
-          type: string
-        website:
-          type: string
-        companyLinkedinUrl:
-          type: string
-        address:
-          $ref: '#/components/schemas/AddressInput'
-    EnrichmentResult:
-      type: object
-      properties:
-        status:
+        level:
           type: string
           enum:
-          - success
-          - failure
-        external_id:
+          - C Level
+          - Board Level
+          - VP Level
+          - Director Level
+          - Manager Level
+          - Staff Level
+        email:
           type: string
-        data:
-          $ref: '#/components/schemas/EnrichedRecord'
-    ProfileScore:
-      type: object
-      properties:
-        profile_name:
+        original_email:
           type: string
-        score:
-          type: object
-          properties:
-            value:
-              type: number
-            bucket:
-              type: string
-              enum:
-              - A
-              - B
-              - C
-              - D
-    EnrichedAddress:
-      type: object
-      properties:
-        country:
+        original_email_verification_status:
           type: string
-        state:
+          enum:
+          - VALID
+          - INVALID
+          - UNKNOWN
+          - CATCH-ALL
+        verification_status:
           type: string
-        city:
+          enum:
+          - Moved
+          - Verified
+          - Not Verified
+        verification_source:
           type: string
-        region:
+          enum:
+          - Social
+          - Email
+          - Social & Email
+        linkedin_profile:
+          type: string
+        phone:
+          type: string
+        is_retired:
           type: string
         address:
+          $ref: '#/components/schemas/EnrichedAddress'
+        analytics:
+          type: object
+          properties:
+            job_functions:
+              type: array
+              items:
+                type: string
+            technologies:
+              type: array
+              items:
+                type: string
+            scores:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProfileScore'
+            max_positive_score_profiles:
+              type: array
+              items:
+                type: string
+    BulkAccepted:
+      type: object
+      properties:
+        id:
           type: string
-        zipcode:
+          description: The polling endpoint URI to extract the bulk results
+          examples:
+          - /v3/enrichment/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
+    IntentModeling:
+      type: object
+      properties:
+        model:
           type: string
+        model_level:
+          type: array
+          items:
+            type: string
+            enum:
+            - High
+            - Medium
+            - Low
+            - NO_INTENT
+        source:
+          type: string
+          description: Either LS Intent or Bombora
+        cadence:
+          type: string
+        new_high_intent:
+          type: string
+        industries:
+          type: array
+          items:
+            type: string
+        top_metros:
+          type: array
+          items:
+            type: string
+        domain_origins:
+          type: array
+          items:
+            type: string
     DepartmentSize:
       type: object
       properties:
@@ -377,20 +345,21 @@ components:
               type: array
               items:
                 type: string
-    Error:
+    BulkEnrichmentRequest:
       type: object
-      description: General Leadspace JSON error envelope
+      required:
+      - data
       properties:
-        error:
+        data:
+          type: array
+          maxItems: 500
+          description: Up to 500 records per POST
+          items:
+            $ref: '#/components/schemas/SingleEnrichmentRequest'
+        callbackUrl:
           type: string
-          description: Error description
-        tracking_id:
-          type: string
-          description: Leadspace tracking identifier for further inspection
-        request_timestamp:
-          type: string
-          description: Timestamp assigned when the request reached Leadspace servers
-        details:
+          description: URL Leadspace calls back when bulk processing completes
+        external_bulk_id:
           type: string
     SingleEnrichmentRequest:
       type: object
@@ -406,6 +375,98 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomField'
+    Error:
+      type: object
+      description: General Leadspace JSON error envelope
+      properties:
+        error:
+          type: string
+          description: Error description
+        tracking_id:
+          type: string
+          description: Leadspace tracking identifier for further inspection
+        request_timestamp:
+          type: string
+          description: Timestamp assigned when the request reached Leadspace servers
+        details:
+          type: string
+    CompanyInput:
+      type: object
+      properties:
+        lsid:
+          type: string
+          description: Leadspace company identifier; when supplied it is matched on first
+        ugLsid:
+          type: string
+          description: Universal Graph company identifier
+        name:
+          type: string
+        website:
+          type: string
+        companyLinkedinUrl:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressInput'
+    EnrichmentResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - failure
+        external_id:
+          type: string
+        data:
+          $ref: '#/components/schemas/EnrichedRecord'
+    EnrichedRecord:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/EnrichedPerson'
+        company:
+          $ref: '#/components/schemas/EnrichedCompany'
+        enrichment_status:
+          type: string
+          enum:
+          - Not Enriched
+          - Company Enriched
+          - Person Enriched
+          - Person & Company Enriched
+        cdi_matched:
+          type: string
+        total_scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileScore'
+        max_positive_total_score_profiles:
+          type: array
+          items:
+            type: string
+    BulkCallback:
+      type: object
+      properties:
+        bulkId:
+          type: string
+        callbackMethod:
+          type: object
+          properties:
+            callbackUrl:
+              type: string
+            pollingUrl:
+              type: string
+        bulkStatus:
+          type: string
+          enum:
+          - COMPLETED
+          - INSUFFICIENT_CREDITS
+          - INTERNAL_ERROR
+        successRecords:
+          type: integer
+        personEnriched:
+          type: integer
+        companyEnriched:
+          type: integer
     CustomField:
       type: object
       properties:
@@ -413,14 +474,36 @@ components:
           type: string
         value:
           type: string
-    BulkAccepted:
+    EnrichedAddress:
       type: object
       properties:
-        id:
+        country:
           type: string
-          description: The polling endpoint URI to extract the bulk results
-          examples:
-          - /v3/enrichment/results/a4b6e123-8905-4dff-a966-50c3ce8f78ft
+        state:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        address:
+          type: string
+        zipcode:
+          type: string
+    CompanyFunding:
+      type: object
+      properties:
+        last_round_investor_count:
+          type: number
+        total_rounds_count:
+          type: number
+        last_round_date:
+          type: string
+        last_round_money_raised:
+          type: string
+        last_round_type:
+          type: string
+        cb_url:
+          type: string
     CompanyInvestors:
       type: object
       properties:
@@ -430,6 +513,53 @@ components:
           type: string
         company_investors:
           type: string
+    PersonInput:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        title:
+          type: string
+        person_phone:
+          type: string
+        person_country:
+          type: string
+        linkedinUrl:
+          type: string
+    AddressInput:
+      type: object
+      properties:
+        country:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        street:
+          type: string
+        postalcode:
+          type: string
+    ProfileScore:
+      type: object
+      properties:
+        profile_name:
+          type: string
+        score:
+          type: object
+          properties:
+            value:
+              type: number
+            bucket:
+              type: string
+              enum:
+              - A
+              - B
+              - C
+              - D
     CompanyFamilyTree:
       type: object
       description: The company hierarchy in addition to the matched company
@@ -462,139 +592,17 @@ components:
                 type: string
               address:
                 $ref: '#/components/schemas/EnrichedAddress'
-    EnrichedPerson:
-      type: object
-      properties:
-        ug_person_id:
-          type: string
-          description: Unique Leadspace person identifier
-        first_name:
-          type: string
-        last_name:
-          type: string
-        title:
-          type: string
-        department:
-          type: string
-        level:
-          type: string
-          enum:
-          - C Level
-          - Board Level
-          - VP Level
-          - Director Level
-          - Manager Level
-          - Staff Level
-        email:
-          type: string
-        original_email:
-          type: string
-        original_email_verification_status:
-          type: string
-          enum:
-          - VALID
-          - INVALID
-          - UNKNOWN
-          - CATCH-ALL
-        verification_status:
-          type: string
-          enum:
-          - Moved
-          - Verified
-          - Not Verified
-        verification_source:
-          type: string
-          enum:
-          - Social
-          - Email
-          - Social & Email
-        linkedin_profile:
-          type: string
-        phone:
-          type: string
-        is_retired:
-          type: string
-        address:
-          $ref: '#/components/schemas/EnrichedAddress'
-        analytics:
-          type: object
-          properties:
-            job_functions:
-              type: array
-              items:
-                type: string
-            technologies:
-              type: array
-              items:
-                type: string
-            scores:
-              type: array
-              items:
-                $ref: '#/components/schemas/ProfileScore'
-            max_positive_score_profiles:
-              type: array
-              items:
-                type: string
-    IntentModeling:
-      type: object
-      properties:
-        model:
-          type: string
-        model_level:
-          type: array
-          items:
-            type: string
-            enum:
-            - High
-            - Medium
-            - Low
-            - NO_INTENT
-        source:
-          type: string
-          description: Either LS Intent or Bombora
-        cadence:
-          type: string
-        new_high_intent:
-          type: string
-        industries:
-          type: array
-          items:
-            type: string
-        top_metros:
-          type: array
-          items:
-            type: string
-        domain_origins:
-          type: array
-          items:
-            type: string
-    BulkCallback:
-      type: object
-      properties:
-        bulkId:
-          type: string
-        callbackMethod:
-          type: object
-          properties:
-            callbackUrl:
-              type: string
-            pollingUrl:
-              type: string
-        bulkStatus:
-          type: string
-          enum:
-          - COMPLETED
-          - INSUFFICIENT_CREDITS
-          - INTERNAL_ERROR
-        successRecords:
-          type: integer
-        personEnriched:
-          type: integer
-        companyEnriched:
-          type: integer
   responses:
+    InsufficientCredits:
+      description: Insufficient credits, or the program ID is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     RateLimitExceeded:
       description: Rate limit was exceeded
+    Unauthorized:
+      description: Unauthorized request (wrong credentials or credentials have expired)
     ServerError:
       description: Server error
       content:
@@ -603,14 +611,6 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request failed due to insufficient basic input, or the JSON format is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized request (wrong credentials or credentials have expired)
-    InsufficientCredits:
-      description: Insufficient credits, or the program ID is invalid
       content:
         application/json:
           schema:

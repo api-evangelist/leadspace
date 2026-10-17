@@ -64,16 +64,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    RefreshRequest:
-      type: object
-      required:
-      - user
-      - refreshToken
-      properties:
-        user:
-          type: string
-        refreshToken:
-          type: string
     AuthorizationRequest:
       type: object
       required:
@@ -92,6 +82,16 @@ components:
           description: For API v4 services use API_GATEWAY
           examples:
           - API_GATEWAY
+    RefreshRequest:
+      type: object
+      required:
+      - user
+      - refreshToken
+      properties:
+        user:
+          type: string
+        refreshToken:
+          type: string
     AuthorizationResponse:
       type: object
       properties:

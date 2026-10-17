@@ -109,6 +109,17 @@ paths:
       description: Leadspace API gateway (production)
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        tracking_id:
+          type: string
+        request_timestamp:
+          type: string
+        details:
+          type: string
     DiscoveryResults:
       type: object
       properties:
@@ -124,97 +135,55 @@ components:
                 type: string
               data:
                 type: object
-    Error:
+    EnrichedRecord:
       type: object
       properties:
-        error:
+        person:
+          $ref: '#/components/schemas/EnrichedPerson'
+        company:
+          $ref: '#/components/schemas/EnrichedCompany'
+        enrichment_status:
           type: string
-        tracking_id:
+          enum:
+          - Not Enriched
+          - Company Enriched
+          - Person Enriched
+          - Person & Company Enriched
+        cdi_matched:
           type: string
-        request_timestamp:
-          type: string
-        details:
-          type: string
-    BulkResults:
-      type: object
-      properties:
-        results:
+        total_scores:
           type: array
           items:
-            $ref: '#/components/schemas/EnrichmentResult'
-    CompanyInvestors:
-      type: object
-      properties:
-        cb_url:
-          type: string
-        last_investor_name:
-          type: string
-        company_investors:
-          type: string
-    ProfileScore:
-      type: object
-      properties:
-        profile_name:
-          type: string
-        score:
-          type: object
-          properties:
-            value:
-              type: number
-            bucket:
-              type: string
-              enum:
-              - A
-              - B
-              - C
-              - D
-    CompanyFamilyTree:
-      type: object
-      description: The company hierarchy in addition to the matched company
-      properties:
-        companies:
+            $ref: '#/components/schemas/ProfileScore'
+        max_positive_total_score_profiles:
           type: array
           items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                - DU
-                - GU
-                - SITE
-                - PARENT
-                - HQ
-                - SU
-              name:
-                type: string
-              ls_id:
-                type: string
-              website:
-                type: string
-              phone:
-                type: string
-              sic:
-                type: string
-              naics:
-                type: string
-              address:
-                $ref: '#/components/schemas/EnrichedAddress'
-    EnrichedAddress:
+            type: string
+    DepartmentSize:
       type: object
       properties:
-        country:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        region:
-          type: string
-        address:
-          type: string
-        zipcode:
-          type: string
+        hr:
+          type: number
+        sales:
+          type: number
+        mgmt:
+          type: number
+        product_mgmt:
+          type: number
+        it:
+          type: number
+        administration:
+          type: number
+        marketing:
+          type: number
+        operations:
+          type: number
+        rnd:
+          type: number
+        business_dev:
+          type: number
+        finance:
+          type: number
     EnrichedPerson:
       type: object
       properties:
@@ -288,58 +257,6 @@ components:
               type: array
               items:
                 type: string
-    CompanyFunding:
-      type: object
-      properties:
-        last_round_investor_count:
-          type: number
-        total_rounds_count:
-          type: number
-        last_round_date:
-          type: string
-        last_round_money_raised:
-          type: string
-        last_round_type:
-          type: string
-        cb_url:
-          type: string
-    DepartmentSize:
-      type: object
-      properties:
-        hr:
-          type: number
-        sales:
-          type: number
-        mgmt:
-          type: number
-        product_mgmt:
-          type: number
-        it:
-          type: number
-        administration:
-          type: number
-        marketing:
-          type: number
-        operations:
-          type: number
-        rnd:
-          type: number
-        business_dev:
-          type: number
-        finance:
-          type: number
-    EnrichmentResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - failure
-        external_id:
-          type: string
-        data:
-          $ref: '#/components/schemas/EnrichedRecord'
     EnrichedCompany:
       type: object
       properties:
@@ -451,45 +368,89 @@ components:
               type: array
               items:
                 type: string
-    Error_2:
-      type: object
-      description: General Leadspace JSON error envelope
-      properties:
-        error:
-          type: string
-          description: Error description
-        tracking_id:
-          type: string
-          description: Leadspace tracking identifier for further inspection
-        request_timestamp:
-          type: string
-          description: Timestamp assigned when the request reached Leadspace servers
-        details:
-          type: string
-    EnrichedRecord:
+    EnrichmentResult:
       type: object
       properties:
-        person:
-          $ref: '#/components/schemas/EnrichedPerson'
-        company:
-          $ref: '#/components/schemas/EnrichedCompany'
-        enrichment_status:
+        status:
           type: string
           enum:
-          - Not Enriched
-          - Company Enriched
-          - Person Enriched
-          - Person & Company Enriched
-        cdi_matched:
+          - success
+          - failure
+        external_id:
           type: string
-        total_scores:
+        data:
+          $ref: '#/components/schemas/EnrichedRecord'
+    EnrichedAddress:
+      type: object
+      properties:
+        country:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        address:
+          type: string
+        zipcode:
+          type: string
+    CompanyFamilyTree:
+      type: object
+      description: The company hierarchy in addition to the matched company
+      properties:
+        companies:
           type: array
           items:
-            $ref: '#/components/schemas/ProfileScore'
-        max_positive_total_score_profiles:
-          type: array
-          items:
-            type: string
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - DU
+                - GU
+                - SITE
+                - PARENT
+                - HQ
+                - SU
+              name:
+                type: string
+              ls_id:
+                type: string
+              website:
+                type: string
+              phone:
+                type: string
+              sic:
+                type: string
+              naics:
+                type: string
+              address:
+                $ref: '#/components/schemas/EnrichedAddress'
+    CompanyFunding:
+      type: object
+      properties:
+        last_round_investor_count:
+          type: number
+        total_rounds_count:
+          type: number
+        last_round_date:
+          type: string
+        last_round_money_raised:
+          type: string
+        last_round_type:
+          type: string
+        cb_url:
+          type: string
+    CompanyInvestors:
+      type: object
+      properties:
+        cb_url:
+          type: string
+        last_investor_name:
+          type: string
+        company_investors:
+          type: string
     IntentModeling:
       type: object
       properties:
@@ -523,6 +484,45 @@ components:
           type: array
           items:
             type: string
+    BulkResults:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrichmentResult'
+    Error_2:
+      type: object
+      description: General Leadspace JSON error envelope
+      properties:
+        error:
+          type: string
+          description: Error description
+        tracking_id:
+          type: string
+          description: Leadspace tracking identifier for further inspection
+        request_timestamp:
+          type: string
+          description: Timestamp assigned when the request reached Leadspace servers
+        details:
+          type: string
+    ProfileScore:
+      type: object
+      properties:
+        profile_name:
+          type: string
+        score:
+          type: object
+          properties:
+            value:
+              type: number
+            bucket:
+              type: string
+              enum:
+              - A
+              - B
+              - C
+              - D
     IntentResults:
       type: object
       properties:
