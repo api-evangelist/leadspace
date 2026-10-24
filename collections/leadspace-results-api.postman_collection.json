@@ -1,829 +1,824 @@
 {
+  "info": {
+    "_postman_id": "4a609431-73dd-4f6a-acec-6b0981618c83",
+    "name": "Leadspace Results API",
+    "description": "Operations tagged Results across 3 of this provider's published API definitions: leadspace-discovery-openapi.yml, leadspace-enrichment-openapi.yml, leadspace-intent-openapi.yml. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Leadspace Support\n Email: support@leadspace.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:07:46.000Z",
+    "updatedAt": "2026-10-22T01:07:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4a609431-73dd-4f6a-acec-6b0981618c83"
+  },
   "item": [
     {
-      "id": "2965351f-ae06-4598-98ba-922c184984ae",
-      "name": "Results",
-      "description": {
-        "content": "Polling for asynchronous discovery results",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "a0bee7ee-e048-44d4-a111-eeb06e6948ce",
-          "name": "Poll for bulk discovery results",
-          "request": {
-            "name": "Poll for bulk discovery results",
-            "description": {},
-            "url": {
-              "path": [
-                "v1",
-                "expansion",
-                "results",
-                ":bulkId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bulkId",
-                  "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "expansion",
+          "item": [
             {
-              "id": "565dcf9f-eec5-429e-97c1-875e346c8839",
-              "name": "Request is done",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "expansion",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "results",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{bulkId}",
+                  "item": [
+                    {
+                      "name": "Poll for bulk discovery results",
+                      "id": "027d0efc-a36e-4c89-b0c1-0257be0172f4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/expansion/results/:bulkId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "expansion",
+                            "results",
+                            ":bulkId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e954ad08-cfae-439e-a676-29d612736676",
+                              "key": "bulkId",
+                              "value": "<string>",
+                              "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "fe9a7c98-8829-4fb7-ae4b-41fa617a79ce",
+                          "name": "Request is done",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/expansion/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "expansion",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"results\": [\n    {\n      \"status\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"status\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-fe9a7c98-8829-4fb7-ae4b-41fa617a79ce"
+                        },
+                        {
+                          "id": "bb36dff2-83ef-4ead-8baa-3f74757e1ffa",
+                          "name": "Request is still processing",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/expansion/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "expansion",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-bb36dff2-83ef-4ead-8baa-3f74757e1ffa"
+                        },
+                        {
+                          "id": "f2602baa-8642-4f2b-9c43-bc1a00f18231",
+                          "name": "Unauthorized request (wrong credentials or credentials have expired)",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/expansion/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "expansion",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-f2602baa-8642-4f2b-9c43-bc1a00f18231"
+                        },
+                        {
+                          "id": "7b06ccc3-c344-48e0-8d88-edfcda7f335f",
+                          "name": "Results not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/expansion/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "expansion",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-7b06ccc3-c344-48e0-8d88-edfcda7f335f"
+                        },
+                        {
+                          "id": "0ab01709-764f-40fc-a516-bbf31d85d158",
+                          "name": "Server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/expansion/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "expansion",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"tracking_id\": \"<string>\",\n  \"request_timestamp\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-0ab01709-764f-40fc-a516-bbf31d85d158"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:07:47.000Z",
+                      "updatedAt": "2026-10-22T01:07:47.000Z",
+                      "uid": "35240-027d0efc-a36e-4c89-b0c1-0257be0172f4"
+                    }
+                  ],
+                  "id": "66114d1f-6669-42f8-9284-656f55b5c249",
+                  "createdAt": "2026-10-22T01:07:47.000Z",
+                  "updatedAt": "2026-10-22T01:07:47.000Z",
+                  "uid": "35240-66114d1f-6669-42f8-9284-656f55b5c249"
                 }
               ],
-              "body": "{\n  \"results\": [\n    {\n      \"status\": \"string\",\n      \"external_id\": \"string\",\n      \"data\": {}\n    },\n    {\n      \"status\": \"string\",\n      \"external_id\": \"string\",\n      \"data\": {}\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a75d7f1f-81cc-44bb-a4d0-0100e38aa8e2",
-              "name": "Request is still processing",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "expansion",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "62231402-6530-4892-af45-4e24341beed3",
-              "name": "Unauthorized request (wrong credentials or credentials have expired)",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "expansion",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e50e9524-8d1a-4161-85e1-fb86ccbbe3c8",
-              "name": "Results not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "expansion",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "40e50179-6e16-4b6f-8c2c-f519c8dfd331",
-              "name": "Server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "expansion",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "65899879-0d3b-4c96-8681-175f8d292c4e",
+              "createdAt": "2026-10-22T01:07:47.000Z",
+              "updatedAt": "2026-10-22T01:07:47.000Z",
+              "uid": "35240-65899879-0d3b-4c96-8681-175f8d292c4e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "3e6780d8-858c-4b95-98ee-f87a1dfabd9b",
+          "createdAt": "2026-10-22T01:07:47.000Z",
+          "updatedAt": "2026-10-22T01:07:47.000Z",
+          "uid": "35240-3e6780d8-858c-4b95-98ee-f87a1dfabd9b"
         },
         {
-          "id": "751efd5c-3f06-43ed-8e30-931ffaa3f548",
-          "name": "Poll for bulk enrichment results",
-          "request": {
-            "name": "Poll for bulk enrichment results",
-            "description": {
-              "content": "Retrieves the results of a previously submitted bulk enrichment job.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v3",
-                "enrichment",
-                "results",
-                ":bulkId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bulkId",
-                  "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "intent",
+          "item": [
             {
-              "id": "1da994ed-385e-48e4-8959-78ad738bdf23",
-              "name": "The request is done",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "enrichment",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "results",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{jobId}",
+                  "item": [
+                    {
+                      "name": "Poll for intent scoring results",
+                      "id": "603ec804-d0e4-45a0-b07a-0b1e2b808fff",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/intent/results/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "intent",
+                            "results",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "244520c5-43d6-4286-a761-57393e824570",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "83ae94bd-f3ce-494d-b945-dc9185a4ebe3",
+                          "name": "Intent results",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/intent/results/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "intent",
+                                "results",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"Failure\",\n  \"external_id\": \"<string>\",\n  \"data\": {\n    \"status\": \"Failure\",\n    \"domain_used\": \"<string>\",\n    \"domain_intent\": \"<string>\",\n    \"intent_modeling_scores\": {\n      \"project_name\": \"<string>\",\n      \"project_score\": \"<string>\",\n      \"surging_topics\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-83ae94bd-f3ce-494d-b945-dc9185a4ebe3"
+                        },
+                        {
+                          "id": "97d302f4-b359-4844-9698-1a16bd4ffea5",
+                          "name": "Unauthorized request (wrong credentials or credentials have expired)",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/intent/results/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "intent",
+                                "results",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-97d302f4-b359-4844-9698-1a16bd4ffea5"
+                        },
+                        {
+                          "id": "215a4693-88c3-4601-ab71-e553907fbfd6",
+                          "name": "Server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/intent/results/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "intent",
+                                "results",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"tracking_id\": \"<string>\",\n  \"request_timestamp\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-215a4693-88c3-4601-ab71-e553907fbfd6"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:07:47.000Z",
+                      "updatedAt": "2026-10-22T01:07:47.000Z",
+                      "uid": "35240-603ec804-d0e4-45a0-b07a-0b1e2b808fff"
+                    }
+                  ],
+                  "id": "1b48b0ed-8ed2-48a1-9de1-61bed175b2c6",
+                  "createdAt": "2026-10-22T01:07:47.000Z",
+                  "updatedAt": "2026-10-22T01:07:47.000Z",
+                  "uid": "35240-1b48b0ed-8ed2-48a1-9de1-61bed175b2c6"
                 }
               ],
-              "body": "{\n  \"results\": [\n    {\n      \"status\": \"success\",\n      \"external_id\": \"string\",\n      \"data\": {\n        \"person\": {\n          \"ug_person_id\": \"string\",\n          \"first_name\": \"string\",\n          \"last_name\": \"string\",\n          \"title\": \"string\",\n          \"department\": \"string\",\n          \"level\": \"Director Level\",\n          \"email\": \"string\",\n          \"original_email\": \"string\",\n          \"original_email_verification_status\": \"VALID\",\n          \"verification_status\": \"Not Verified\",\n          \"verification_source\": \"Social\",\n          \"linkedin_profile\": \"string\",\n          \"phone\": \"string\",\n          \"is_retired\": \"string\",\n          \"address\": {\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"state\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"zipcode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"analytics\": {\n            \"job_functions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"technologies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"scores\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"max_positive_score_profiles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        \"company\": {\n          \"ug_company_id\": \"string\",\n          \"ls_id\": \"string\",\n          \"name\": \"string\",\n          \"original_name\": \"string\",\n          \"description\": \"string\",\n          \"website\": \"string\",\n          \"phone\": \"string\",\n          \"industry\": \"string\",\n          \"sub_industry\": \"string\",\n          \"sic\": \"string\",\n          \"sicDescription\": \"string\",\n          \"naics\": \"string\",\n          \"naicsDescription\": \"string\",\n          \"ownership\": \"string\",\n          \"linkedin_profile\": \"string\",\n          \"latitude\": \"string\",\n          \"longitude\": \"string\",\n          \"primary_location\": \"string\",\n          \"address\": {\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"state\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"zipcode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"employees\": {\n            \"exact\": 3478.156973815778,\n            \"range\": \"string\"\n          },\n          \"revenue_dollar\": {\n            \"exact\": 9035.2273295125,\n            \"range\": \"string\"\n          },\n          \"matching_confidence\": {\n            \"level\": \"MEDIUM\"\n          },\n          \"family_tree\": {\n            \"companies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"department_size\": {\n            \"hr\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sales\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mgmt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_mgmt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"it\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"administration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"marketing\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"operations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rnd\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"business_dev\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"finance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"funding\": {\n            \"last_round_investor_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_rounds_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_round_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_round_money_raised\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_round_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cb_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"investors\": {\n            \"cb_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_investor_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"company_investors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"signals\": {\n            \"fortune_500_rank\": 4510.400149605735,\n            \"fortune_1000_rank\": 4679.220258408245,\n            \"g2k_rank\": 1314.3038293331456\n          },\n          \"intent_modeling_v4\": {\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model_level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"source\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cadence\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"new_high_intent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"industries\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"top_metros\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"domain_origins\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"domain_intent\": \"string\",\n          \"specialties\": [\n            \"string\",\n            \"string\"\n          ],\n          \"analytics\": {\n            \"installed_base_technologies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"web_site_technologies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"company_technologies_categories\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"customTechnologiesCategories\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        \"enrichment_status\": \"Company Enriched\",\n        \"cdi_matched\": \"string\",\n        \"total_scores\": [\n          {\n            \"profile_name\": \"string\",\n            \"score\": {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"bucket\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"profile_name\": \"string\",\n            \"score\": {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"bucket\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"max_positive_total_score_profiles\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    {\n      \"status\": \"failure\",\n      \"external_id\": \"string\",\n      \"data\": {\n        \"person\": {\n          \"ug_person_id\": \"string\",\n          \"first_name\": \"string\",\n          \"last_name\": \"string\",\n          \"title\": \"string\",\n          \"department\": \"string\",\n          \"level\": \"Director Level\",\n          \"email\": \"string\",\n          \"original_email\": \"string\",\n          \"original_email_verification_status\": \"CATCH-ALL\",\n          \"verification_status\": \"Verified\",\n          \"verification_source\": \"Email\",\n          \"linkedin_profile\": \"string\",\n          \"phone\": \"string\",\n          \"is_retired\": \"string\",\n          \"address\": {\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"state\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"zipcode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"analytics\": {\n            \"job_functions\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"technologies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"scores\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"max_positive_score_profiles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        \"company\": {\n          \"ug_company_id\": \"string\",\n          \"ls_id\": \"string\",\n          \"name\": \"string\",\n          \"original_name\": \"string\",\n          \"description\": \"string\",\n          \"website\": \"string\",\n          \"phone\": \"string\",\n          \"industry\": \"string\",\n          \"sub_industry\": \"string\",\n          \"sic\": \"string\",\n          \"sicDescription\": \"string\",\n          \"naics\": \"string\",\n          \"naicsDescription\": \"string\",\n          \"ownership\": \"string\",\n          \"linkedin_profile\": \"string\",\n          \"latitude\": \"string\",\n          \"longitude\": \"string\",\n          \"primary_location\": \"string\",\n          \"address\": {\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"state\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"address\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"zipcode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"employees\": {\n            \"exact\": 5028.99532070183,\n            \"range\": \"string\"\n          },\n          \"revenue_dollar\": {\n            \"exact\": 766.3547512695224,\n            \"range\": \"string\"\n          },\n          \"matching_confidence\": {\n            \"level\": \"HIGH\"\n          },\n          \"family_tree\": {\n            \"companies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"department_size\": {\n            \"hr\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"sales\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"mgmt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_mgmt\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"it\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"administration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"marketing\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"operations\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rnd\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"business_dev\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"finance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"funding\": {\n            \"last_round_investor_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"total_rounds_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_round_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_round_money_raised\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_round_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cb_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"investors\": {\n            \"cb_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_investor_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"company_investors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"signals\": {\n            \"fortune_500_rank\": 2036.7973495300319,\n            \"fortune_1000_rank\": 7573.090615792113,\n            \"g2k_rank\": 6068.102419781487\n          },\n          \"intent_modeling_v4\": {\n            \"model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"model_level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"source\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"cadence\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"new_high_intent\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"industries\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"top_metros\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"domain_origins\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"domain_intent\": \"string\",\n          \"specialties\": [\n            \"string\",\n            \"string\"\n          ],\n          \"analytics\": {\n            \"installed_base_technologies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"web_site_technologies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"company_technologies_categories\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"customTechnologiesCategories\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        \"enrichment_status\": \"Person & Company Enriched\",\n        \"cdi_matched\": \"string\",\n        \"total_scores\": [\n          {\n            \"profile_name\": \"string\",\n            \"score\": {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"bucket\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"profile_name\": \"string\",\n            \"score\": {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"bucket\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"max_positive_total_score_profiles\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9ccfc850-2129-4f53-a657-c939961c3d2d",
-              "name": "The request is still processing",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "enrichment",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e84ddc9f-1943-43c7-aa86-83830c9fb7fd",
-              "name": "Unauthorized request (wrong credentials or credentials have expired)",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "enrichment",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8b1ac175-9c02-4773-937d-b0d5eeb23b45",
-              "name": "The results are not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "enrichment",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e93c2788-f9c0-47c0-88bc-79298428247f",
-              "name": "Server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "enrichment",
-                    "results",
-                    ":bulkId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bulkId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "cf66e2f1-b88c-4780-9b0f-9441c795446b",
+              "createdAt": "2026-10-22T01:07:47.000Z",
+              "updatedAt": "2026-10-22T01:07:47.000Z",
+              "uid": "35240-cf66e2f1-b88c-4780-9b0f-9441c795446b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f8c39b95-b4fe-4772-8dcb-f7751a0d71d7",
-          "name": "Poll for intent scoring results",
-          "request": {
-            "name": "Poll for intent scoring results",
-            "description": {},
-            "url": {
-              "path": [
-                "v1",
-                "intent",
-                "results",
-                ":jobId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "jobId",
-                  "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "95277516-07c6-45e4-9402-e628b6fc9791",
-              "name": "Intent results",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "intent",
-                    "results",
-                    ":jobId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "jobId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"Success\",\n  \"external_id\": \"string\",\n  \"data\": {\n    \"status\": \"Success\",\n    \"domain_used\": \"string\",\n    \"domain_intent\": \"string\",\n    \"intent_modeling_scores\": {\n      \"project_name\": \"string\",\n      \"project_score\": \"string\",\n      \"surging_topics\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9a77cde6-e068-4580-aa98-c0148f296026",
-              "name": "Unauthorized request (wrong credentials or credentials have expired)",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "intent",
-                    "results",
-                    ":jobId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "jobId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a07ea5a0-ce49-4b9c-a040-f96972729533",
-              "name": "Server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "intent",
-                    "results",
-                    ":jobId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "jobId",
-                      "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\",\n  \"tracking_id\": \"string\",\n  \"request_timestamp\": \"string\",\n  \"details\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "9c79cffc-72c2-4536-b1e5-5f3a6532b783",
+          "createdAt": "2026-10-22T01:07:47.000Z",
+          "updatedAt": "2026-10-22T01:07:47.000Z",
+          "uid": "35240-9c79cffc-72c2-4536-b1e5-5f3a6532b783"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
+      "id": "549c8623-e50c-43e9-8045-36c78dcec2f3",
+      "createdAt": "2026-10-22T01:07:47.000Z",
+      "updatedAt": "2026-10-22T01:07:47.000Z",
+      "uid": "35240-549c8623-e50c-43e9-8045-36c78dcec2f3"
+    },
     {
-      "type": "string",
-      "value": "https://apigw.leadspace.com",
-      "key": "baseUrl"
+      "name": "v3",
+      "item": [
+        {
+          "name": "enrichment",
+          "item": [
+            {
+              "name": "results",
+              "item": [
+                {
+                  "name": "{bulkId}",
+                  "item": [
+                    {
+                      "name": "Poll for bulk enrichment results",
+                      "id": "4294668e-8912-479e-a68c-74e18cddfa51",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/enrichment/results/:bulkId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "enrichment",
+                            "results",
+                            ":bulkId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e9866efa-cb83-4cd8-802d-13af5f2498ee",
+                              "key": "bulkId",
+                              "value": "<string>",
+                              "description": "(Required) The Leadspace bulk identifier returned when the job was accepted"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the results of a previously submitted bulk enrichment job."
+                      },
+                      "response": [
+                        {
+                          "id": "d20517f6-4344-4fc7-a546-2269dd21383b",
+                          "name": "The request is done",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/enrichment/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "enrichment",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"results\": [\n    {\n      \"status\": \"success\",\n      \"external_id\": \"<string>\",\n      \"data\": {\n        \"person\": {\n          \"ug_person_id\": \"<string>\",\n          \"first_name\": \"<string>\",\n          \"last_name\": \"<string>\",\n          \"title\": \"<string>\",\n          \"department\": \"<string>\",\n          \"level\": \"VP Level\",\n          \"email\": \"<string>\",\n          \"original_email\": \"<string>\",\n          \"original_email_verification_status\": \"VALID\",\n          \"verification_status\": \"Not Verified\",\n          \"verification_source\": \"Social\",\n          \"linkedin_profile\": \"<string>\",\n          \"phone\": \"<string>\",\n          \"is_retired\": \"<string>\",\n          \"address\": {\n            \"country\": \"<string>\",\n            \"state\": \"<string>\",\n            \"city\": \"<string>\",\n            \"region\": \"<string>\",\n            \"address\": \"<string>\",\n            \"zipcode\": \"<string>\"\n          },\n          \"analytics\": {\n            \"job_functions\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"technologies\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"scores\": [\n              {\n                \"profile_name\": \"<string>\",\n                \"score\": {\n                  \"value\": \"<number>\",\n                  \"bucket\": \"D\"\n                }\n              },\n              {\n                \"profile_name\": \"<string>\",\n                \"score\": {\n                  \"value\": \"<number>\",\n                  \"bucket\": \"D\"\n                }\n              }\n            ],\n            \"max_positive_score_profiles\": [\n              \"<string>\",\n              \"<string>\"\n            ]\n          }\n        },\n        \"company\": {\n          \"ug_company_id\": \"<string>\",\n          \"ls_id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"original_name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"website\": \"<string>\",\n          \"phone\": \"<string>\",\n          \"industry\": \"<string>\",\n          \"sub_industry\": \"<string>\",\n          \"sic\": \"<string>\",\n          \"sicDescription\": \"<string>\",\n          \"naics\": \"<string>\",\n          \"naicsDescription\": \"<string>\",\n          \"ownership\": \"<string>\",\n          \"linkedin_profile\": \"<string>\",\n          \"latitude\": \"<string>\",\n          \"longitude\": \"<string>\",\n          \"primary_location\": \"<string>\",\n          \"address\": {\n            \"country\": \"<string>\",\n            \"state\": \"<string>\",\n            \"city\": \"<string>\",\n            \"region\": \"<string>\",\n            \"address\": \"<string>\",\n            \"zipcode\": \"<string>\"\n          },\n          \"employees\": {\n            \"exact\": \"<number>\",\n            \"range\": \"<string>\"\n          },\n          \"revenue_dollar\": {\n            \"exact\": \"<number>\",\n            \"range\": \"<string>\"\n          },\n          \"matching_confidence\": {\n            \"level\": \"MEDIUM\"\n          },\n          \"family_tree\": {\n            \"companies\": [\n              {\n                \"type\": \"SU\",\n                \"name\": \"<string>\",\n                \"ls_id\": \"<string>\",\n                \"website\": \"<string>\",\n                \"phone\": \"<string>\",\n                \"sic\": \"<string>\",\n                \"naics\": \"<string>\",\n                \"address\": {\n                  \"country\": \"<string>\",\n                  \"state\": \"<string>\",\n                  \"city\": \"<string>\",\n                  \"region\": \"<string>\",\n                  \"address\": \"<string>\",\n                  \"zipcode\": \"<string>\"\n                }\n              },\n              {\n                \"type\": \"SU\",\n                \"name\": \"<string>\",\n                \"ls_id\": \"<string>\",\n                \"website\": \"<string>\",\n                \"phone\": \"<string>\",\n                \"sic\": \"<string>\",\n                \"naics\": \"<string>\",\n                \"address\": {\n                  \"country\": \"<string>\",\n                  \"state\": \"<string>\",\n                  \"city\": \"<string>\",\n                  \"region\": \"<string>\",\n                  \"address\": \"<string>\",\n                  \"zipcode\": \"<string>\"\n                }\n              }\n            ]\n          },\n          \"department_size\": {\n            \"hr\": \"<number>\",\n            \"sales\": \"<number>\",\n            \"mgmt\": \"<number>\",\n            \"product_mgmt\": \"<number>\",\n            \"it\": \"<number>\",\n            \"administration\": \"<number>\",\n            \"marketing\": \"<number>\",\n            \"operations\": \"<number>\",\n            \"rnd\": \"<number>\",\n            \"business_dev\": \"<number>\",\n            \"finance\": \"<number>\"\n          },\n          \"funding\": {\n            \"last_round_investor_count\": \"<number>\",\n            \"total_rounds_count\": \"<number>\",\n            \"last_round_date\": \"<string>\",\n            \"last_round_money_raised\": \"<string>\",\n            \"last_round_type\": \"<string>\",\n            \"cb_url\": \"<string>\"\n          },\n          \"investors\": {\n            \"cb_url\": \"<string>\",\n            \"last_investor_name\": \"<string>\",\n            \"company_investors\": \"<string>\"\n          },\n          \"signals\": {\n            \"fortune_500_rank\": \"<number>\",\n            \"fortune_1000_rank\": \"<number>\",\n            \"g2k_rank\": \"<number>\"\n          },\n          \"intent_modeling_v4\": {\n            \"model\": \"<string>\",\n            \"model_level\": [\n              \"Medium\",\n              \"NO_INTENT\"\n            ],\n            \"source\": \"<string>\",\n            \"cadence\": \"<string>\",\n            \"new_high_intent\": \"<string>\",\n            \"industries\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"top_metros\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"domain_origins\": [\n              \"<string>\",\n              \"<string>\"\n            ]\n          },\n          \"domain_intent\": \"<string>\",\n          \"specialties\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"analytics\": {\n            \"installed_base_technologies\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"web_site_technologies\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"company_technologies_categories\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"customTechnologiesCategories\": [\n              \"<string>\",\n              \"<string>\"\n            ]\n          }\n        },\n        \"enrichment_status\": \"Person Enriched\",\n        \"cdi_matched\": \"<string>\",\n        \"total_scores\": [\n          {\n            \"profile_name\": \"<string>\",\n            \"score\": {\n              \"value\": \"<number>\",\n              \"bucket\": \"B\"\n            }\n          },\n          {\n            \"profile_name\": \"<string>\",\n            \"score\": {\n              \"value\": \"<number>\",\n              \"bucket\": \"B\"\n            }\n          }\n        ],\n        \"max_positive_total_score_profiles\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"status\": \"success\",\n      \"external_id\": \"<string>\",\n      \"data\": {\n        \"person\": {\n          \"ug_person_id\": \"<string>\",\n          \"first_name\": \"<string>\",\n          \"last_name\": \"<string>\",\n          \"title\": \"<string>\",\n          \"department\": \"<string>\",\n          \"level\": \"Director Level\",\n          \"email\": \"<string>\",\n          \"original_email\": \"<string>\",\n          \"original_email_verification_status\": \"CATCH-ALL\",\n          \"verification_status\": \"Verified\",\n          \"verification_source\": \"Email\",\n          \"linkedin_profile\": \"<string>\",\n          \"phone\": \"<string>\",\n          \"is_retired\": \"<string>\",\n          \"address\": {\n            \"country\": \"<string>\",\n            \"state\": \"<string>\",\n            \"city\": \"<string>\",\n            \"region\": \"<string>\",\n            \"address\": \"<string>\",\n            \"zipcode\": \"<string>\"\n          },\n          \"analytics\": {\n            \"job_functions\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"technologies\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"scores\": [\n              {\n                \"profile_name\": \"<string>\",\n                \"score\": {\n                  \"value\": \"<number>\",\n                  \"bucket\": \"A\"\n                }\n              },\n              {\n                \"profile_name\": \"<string>\",\n                \"score\": {\n                  \"value\": \"<number>\",\n                  \"bucket\": \"A\"\n                }\n              }\n            ],\n            \"max_positive_score_profiles\": [\n              \"<string>\",\n              \"<string>\"\n            ]\n          }\n        },\n        \"company\": {\n          \"ug_company_id\": \"<string>\",\n          \"ls_id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"original_name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"website\": \"<string>\",\n          \"phone\": \"<string>\",\n          \"industry\": \"<string>\",\n          \"sub_industry\": \"<string>\",\n          \"sic\": \"<string>\",\n          \"sicDescription\": \"<string>\",\n          \"naics\": \"<string>\",\n          \"naicsDescription\": \"<string>\",\n          \"ownership\": \"<string>\",\n          \"linkedin_profile\": \"<string>\",\n          \"latitude\": \"<string>\",\n          \"longitude\": \"<string>\",\n          \"primary_location\": \"<string>\",\n          \"address\": {\n            \"country\": \"<string>\",\n            \"state\": \"<string>\",\n            \"city\": \"<string>\",\n            \"region\": \"<string>\",\n            \"address\": \"<string>\",\n            \"zipcode\": \"<string>\"\n          },\n          \"employees\": {\n            \"exact\": \"<number>\",\n            \"range\": \"<string>\"\n          },\n          \"revenue_dollar\": {\n            \"exact\": \"<number>\",\n            \"range\": \"<string>\"\n          },\n          \"matching_confidence\": {\n            \"level\": \"VERY LOW\"\n          },\n          \"family_tree\": {\n            \"companies\": [\n              {\n                \"type\": \"PARENT\",\n                \"name\": \"<string>\",\n                \"ls_id\": \"<string>\",\n                \"website\": \"<string>\",\n                \"phone\": \"<string>\",\n                \"sic\": \"<string>\",\n                \"naics\": \"<string>\",\n                \"address\": {\n                  \"country\": \"<string>\",\n                  \"state\": \"<string>\",\n                  \"city\": \"<string>\",\n                  \"region\": \"<string>\",\n                  \"address\": \"<string>\",\n                  \"zipcode\": \"<string>\"\n                }\n              },\n              {\n                \"type\": \"SITE\",\n                \"name\": \"<string>\",\n                \"ls_id\": \"<string>\",\n                \"website\": \"<string>\",\n                \"phone\": \"<string>\",\n                \"sic\": \"<string>\",\n                \"naics\": \"<string>\",\n                \"address\": {\n                  \"country\": \"<string>\",\n                  \"state\": \"<string>\",\n                  \"city\": \"<string>\",\n                  \"region\": \"<string>\",\n                  \"address\": \"<string>\",\n                  \"zipcode\": \"<string>\"\n                }\n              }\n            ]\n          },\n          \"department_size\": {\n            \"hr\": \"<number>\",\n            \"sales\": \"<number>\",\n            \"mgmt\": \"<number>\",\n            \"product_mgmt\": \"<number>\",\n            \"it\": \"<number>\",\n            \"administration\": \"<number>\",\n            \"marketing\": \"<number>\",\n            \"operations\": \"<number>\",\n            \"rnd\": \"<number>\",\n            \"business_dev\": \"<number>\",\n            \"finance\": \"<number>\"\n          },\n          \"funding\": {\n            \"last_round_investor_count\": \"<number>\",\n            \"total_rounds_count\": \"<number>\",\n            \"last_round_date\": \"<string>\",\n            \"last_round_money_raised\": \"<string>\",\n            \"last_round_type\": \"<string>\",\n            \"cb_url\": \"<string>\"\n          },\n          \"investors\": {\n            \"cb_url\": \"<string>\",\n            \"last_investor_name\": \"<string>\",\n            \"company_investors\": \"<string>\"\n          },\n          \"signals\": {\n            \"fortune_500_rank\": \"<number>\",\n            \"fortune_1000_rank\": \"<number>\",\n            \"g2k_rank\": \"<number>\"\n          },\n          \"intent_modeling_v4\": {\n            \"model\": \"<string>\",\n            \"model_level\": [\n              \"Low\",\n              \"High\"\n            ],\n            \"source\": \"<string>\",\n            \"cadence\": \"<string>\",\n            \"new_high_intent\": \"<string>\",\n            \"industries\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"top_metros\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"domain_origins\": [\n              \"<string>\",\n              \"<string>\"\n            ]\n          },\n          \"domain_intent\": \"<string>\",\n          \"specialties\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"analytics\": {\n            \"installed_base_technologies\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"web_site_technologies\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"company_technologies_categories\": [\n              \"<string>\",\n              \"<string>\"\n            ],\n            \"customTechnologiesCategories\": [\n              \"<string>\",\n              \"<string>\"\n            ]\n          }\n        },\n        \"enrichment_status\": \"Not Enriched\",\n        \"cdi_matched\": \"<string>\",\n        \"total_scores\": [\n          {\n            \"profile_name\": \"<string>\",\n            \"score\": {\n              \"value\": \"<number>\",\n              \"bucket\": \"A\"\n            }\n          },\n          {\n            \"profile_name\": \"<string>\",\n            \"score\": {\n              \"value\": \"<number>\",\n              \"bucket\": \"C\"\n            }\n          }\n        ],\n        \"max_positive_total_score_profiles\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-d20517f6-4344-4fc7-a546-2269dd21383b"
+                        },
+                        {
+                          "id": "0d7e7084-5857-4e28-88a3-53b0b6f8e7f7",
+                          "name": "The request is still processing",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/enrichment/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "enrichment",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-0d7e7084-5857-4e28-88a3-53b0b6f8e7f7"
+                        },
+                        {
+                          "id": "5abdc0bc-e800-4e48-b5cd-f59e60b24a00",
+                          "name": "Unauthorized request (wrong credentials or credentials have expired)",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/enrichment/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "enrichment",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-5abdc0bc-e800-4e48-b5cd-f59e60b24a00"
+                        },
+                        {
+                          "id": "b7d52d28-cc7d-442d-a6e9-0d8752b87af7",
+                          "name": "The results are not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/enrichment/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "enrichment",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-b7d52d28-cc7d-442d-a6e9-0d8752b87af7"
+                        },
+                        {
+                          "id": "1e4bdf9a-f432-4f29-adae-2af144f2d458",
+                          "name": "Server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/enrichment/results/:bulkId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "enrichment",
+                                "results",
+                                ":bulkId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "bulkId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"tracking_id\": \"<string>\",\n  \"request_timestamp\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:07:47.000Z",
+                          "updatedAt": "2026-10-22T01:07:47.000Z",
+                          "uid": "35240-1e4bdf9a-f432-4f29-adae-2af144f2d458"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:07:47.000Z",
+                      "updatedAt": "2026-10-22T01:07:47.000Z",
+                      "uid": "35240-4294668e-8912-479e-a68c-74e18cddfa51"
+                    }
+                  ],
+                  "id": "d5960001-c87e-4eae-ac62-9afa3048ebf2",
+                  "createdAt": "2026-10-22T01:07:47.000Z",
+                  "updatedAt": "2026-10-22T01:07:47.000Z",
+                  "uid": "35240-d5960001-c87e-4eae-ac62-9afa3048ebf2"
+                }
+              ],
+              "id": "71151d02-1e56-4585-9776-96a8a64239ca",
+              "createdAt": "2026-10-22T01:07:47.000Z",
+              "updatedAt": "2026-10-22T01:07:47.000Z",
+              "uid": "35240-71151d02-1e56-4585-9776-96a8a64239ca"
+            }
+          ],
+          "id": "d402987a-a92c-4e63-b46b-657cabc39622",
+          "createdAt": "2026-10-22T01:07:47.000Z",
+          "updatedAt": "2026-10-22T01:07:47.000Z",
+          "uid": "35240-d402987a-a92c-4e63-b46b-657cabc39622"
+        }
+      ],
+      "id": "361838d2-41b1-452f-a174-2113a5446c42",
+      "createdAt": "2026-10-22T01:07:47.000Z",
+      "updatedAt": "2026-10-22T01:07:47.000Z",
+      "uid": "35240-361838d2-41b1-452f-a174-2113a5446c42"
     }
   ],
   "auth": {
@@ -831,17 +826,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "334b2dbd-da2f-4f3c-88b3-f0854340710e",
-    "name": "Leadspace Discovery Authorization Results API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Leadspace Discovery (Expansion) API finds net-new contacts inside target accounts. A bulk request expands up to 500 accounts, ranking discovered people against persona, region, and required-contact-information criteria, and returns a polling URI for asynchronous retrieval. This document was generated by API Evangelist from Leadspace's published technical specifications; Leadspace does not publish a machine-readable OpenAPI definition.\n\nContact Support:\n Name: Leadspace Support\n Email: support@leadspace.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://apigw.leadspace.com"
     }
-  }
+  ]
 }
